@@ -1,7 +1,7 @@
 export const personalData = {
   name: 'Yashodip Jejurkar',
   role: 'DevOps Engineer & Backend Developer',
-  location: 'Nashik, Maharashtra, India',
+  location: 'Rahata, Maharashtra, India',
   availability: 'Open for Backend, DevOps & Cloud Roles',
   
   // Hero headline & quick bio from resume
