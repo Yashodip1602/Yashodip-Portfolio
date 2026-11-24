@@ -106,53 +106,6 @@ export const Skills = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* DevOps Concepts Highlight Banner */}
-        <div className="mt-10 p-6 rounded-2xl border border-border bg-surface-2/70 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/40 flex items-center justify-center text-accent shrink-0 font-mono font-bold text-xs">
-                RPO
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-text font-mono">
-                  Recovery Point Objective (&lt;15m)
-                </h4>
-                <p className="text-xs text-muted mt-1">
-                  Guaranteed via real-time PostgreSQL WAL streaming replication and hourly compressed differential S3 dumps.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-500 shrink-0 font-mono font-bold text-xs">
-                RTO
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-text font-mono">
-                  Recovery Time Objective (&lt;30m)
-                </h4>
-                <p className="text-xs text-muted mt-1">
-                  Immediate standby promotion script and automated route reconfiguration to minimize downtime during outages.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-500 shrink-0 font-mono font-bold text-xs">
-                HA
-              </div>
-              <div>
-                <h4 className="text-sm font-bold text-text font-mono">
-                  High Availability & Autoscaling
-                </h4>
-                <p className="text-xs text-muted mt-1">
-                  Lightweight k3s cluster across AWS EC2 instances with HPA scaling pods dynamically at 70% CPU threshold.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
   )

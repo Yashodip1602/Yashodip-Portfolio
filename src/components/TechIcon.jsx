@@ -10,7 +10,11 @@ import {
   SiGit,
   SiTerraform,
   SiPrometheus,
-  SiGrafana
+  SiGrafana,
+  SiRedis,
+  SiGitlab,
+  SiSonarqubeserver,
+  SiTrivy
 } from 'react-icons/si'
 import { FaAws, FaGithub } from 'react-icons/fa6'
 import {
@@ -68,6 +72,15 @@ export const TechIcon = ({ name, className = 'w-6 h-6' }) => {
       return <SiPrometheus className={`${className} text-[#E6522C]`} />
     case 'grafana':
       return <SiGrafana className={`${className} text-[#F46800]`} />
+    case 'redis':
+      return <SiRedis className={`${className} text-[#DC382D]`} />
+    case 'gitlab':
+      return <SiGitlab className={`${className} text-[#FC6D26]`} />
+    case 'sonarqube':
+    case 'sonar':
+      return <SiSonarqubeserver className={`${className} text-[#4E9BCD]`} />
+    case 'trivy':
+      return <SiTrivy className={`${className} text-[#1904DA]`} />
     case 'registry':
       return <Box className={`${className} text-accent`} />
     case 'concept-ha':
