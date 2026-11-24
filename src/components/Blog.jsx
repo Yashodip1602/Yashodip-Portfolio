@@ -81,7 +81,7 @@ export const Blog = () => {
                 <a
                   href={post.postUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl font-mono text-xs font-semibold bg-surface-2 hover:bg-surface text-text border border-border hover:border-accent hover:text-accent transition-all cursor-pointer"
                 >
                   <span>Read on LinkedIn</span>

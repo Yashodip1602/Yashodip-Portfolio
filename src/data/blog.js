@@ -10,7 +10,7 @@ export const blogPosts = [
     takeaway: 'Git is the single source of truth; no direct kubectl access needed in production.',
     tags: ['GitOps', 'ArgoCD', 'Kubernetes', 'CI/CD'],
     // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar/recent-activity/'
+    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
   },
   {
     id: 'day-25-k3s-on-ec2',
@@ -23,7 +23,7 @@ export const blogPosts = [
     takeaway: 'k3s cuts memory consumption by over 50% without sacrificing standard Kubernetes APIs.',
     tags: ['k3s', 'Kubernetes', 'AWS EC2', 'Linux'],
     // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar/recent-activity/'
+    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
   },
   {
     id: 'day-28-postgres-replication',
@@ -36,7 +36,7 @@ export const blogPosts = [
     takeaway: 'Replication slots prevent the primary from discarding WAL logs before the replica ingests them.',
     tags: ['PostgreSQL', 'Databases', 'High Availability', 'Linux'],
     // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar/recent-activity/'
+    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
   },
   {
     id: 'day-30-rpo-rto-planning',
@@ -49,7 +49,7 @@ export const blogPosts = [
     takeaway: 'Backups are useless until you have tested and timed the recovery procedure.',
     tags: ['Disaster Recovery', 'RPO/RTO', 'AWS S3', 'Cron Automation'],
     // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar/recent-activity/'
+    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
   },
   {
     id: 'day-32-jenkins-node-pipeline',
@@ -62,6 +62,6 @@ export const blogPosts = [
     takeaway: 'Multi-stage Docker builds shrink runtime images from 850MB down to 120MB.',
     tags: ['Jenkins', 'Node.js', 'Docker', 'Automation'],
     // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar/recent-activity/'
+    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
   }
 ]

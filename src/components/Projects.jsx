@@ -143,7 +143,7 @@ export const Projects = () => {
               <a
                 href={featuredProject.githubUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-surface hover:bg-surface-2 text-text border border-border hover:border-accent transition-all shadow-sm group cursor-pointer"
               >
                 <FaGithub className="w-4 h-4 group-hover:text-accent transition-colors" />
@@ -154,7 +154,7 @@ export const Projects = () => {
               <a
                 href={featuredProject.liveUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-accent hover:opacity-90 text-bg transition-all shadow-md shadow-accent/20 cursor-pointer"
               >
                 <ExternalLink className="w-4 h-4" />
@@ -266,7 +266,7 @@ export const Projects = () => {
                   <a
                     href={project.githubUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-mono text-xs font-semibold bg-surface-2 hover:bg-surface text-text border border-border hover:border-accent transition-colors cursor-pointer"
                   >
                     <FaGithub className="w-3.5 h-3.5" />
@@ -275,7 +275,7 @@ export const Projects = () => {
                   <a
                     href={project.liveUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 py-2 px-3 rounded-xl font-mono text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 transition-colors cursor-pointer"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />

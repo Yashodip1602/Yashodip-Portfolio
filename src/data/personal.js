@@ -52,9 +52,9 @@ export const personalData = {
     email: 'jejurkaryashodip@gmail.com',
     phone: '+91 9021504940',
     location: 'Rahata, Maharashtra, India',
-    linkedin: 'https://linkedin.com/in/yashodip-jejurkar',
-    github: 'https://github.com/yashodipjejurkar',
-    twitter: 'https://twitter.com/yashodip_devops',
+    linkedin: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/',
+    github: 'https://github.com/Yashodip1602',
+    twitter: 'https://x.com/YashodipRootX',
     resumeUrl: '/resume.pdf'
   },
 

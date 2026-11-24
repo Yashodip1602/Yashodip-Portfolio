@@ -47,7 +47,7 @@ export const Footer = () => {
             <a
               href={personalData.contact.github}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="GitHub"
               className="p-2 rounded-lg bg-surface-2 border border-border text-muted hover:text-accent hover:border-accent transition-colors cursor-pointer"
             >
@@ -56,7 +56,7 @@ export const Footer = () => {
             <a
               href={personalData.contact.linkedin}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               aria-label="LinkedIn"
               className="p-2 rounded-lg bg-surface-2 border border-border text-muted hover:text-[#0A66C2] hover:border-accent transition-colors cursor-pointer"
             >

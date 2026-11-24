@@ -177,4 +177,4 @@ netlify deploy --prod
 
 ## 📄 License
 
-MIT © [Yashodip Jejurkar](https://github.com/yashodipjejurkar)
+MIT © [Yashodip Jejurkar](https://github.com/Yashodip1602)

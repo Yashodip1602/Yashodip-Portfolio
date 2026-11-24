@@ -61,9 +61,9 @@ export const projectsData = [
     ],
     tags: ['AWS EC2', 'Jenkins', 'Docker', 'k3s', 'ArgoCD', 'Node.js', 'GitOps', 'HPA Scaling', 'Linux'],
     // TODO: replace with your actual GitHub repository URL
-    githubUrl: 'https://github.com/yashodipjejurkar/master-devops-nodejs-aws-k3s',
+    githubUrl: 'https://github.com/Yashodip1602/master-devops-nodejs-aws-k3s',
     // TODO: replace with your live demo or architecture docs link
-    liveUrl: 'https://github.com/yashodipjejurkar/master-devops-nodejs-aws-k3s#architecture-walkthrough'
+    liveUrl: 'https://github.com/Yashodip1602/master-devops-nodejs-aws-k3s#architecture-walkthrough'
   },
   {
     id: 'postgres-replication-s3-backup',
@@ -87,8 +87,8 @@ export const projectsData = [
     },
     tags: ['PostgreSQL', 'AWS EC2', 'AWS S3', 'WAL Replication', 'Bash Scripting', 'Cron Automation', 'RPO/RTO', 'DR Playbook'],
     // TODO: replace with your actual GitHub repository URL
-    githubUrl: 'https://github.com/yashodipjejurkar/postgres-replication-s3-backup',
-    liveUrl: 'https://github.com/yashodipjejurkar/postgres-replication-s3-backup#disaster-recovery-plan'
+    githubUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup',
+    liveUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup#disaster-recovery-plan'
   },
   {
     id: 'blog-management-platform',
@@ -109,8 +109,8 @@ export const projectsData = [
       iacWorkflow: 'Fastify -> Sequelize -> PostgreSQL Container'
     },
     tags: ['Node.js', 'Fastify', 'PostgreSQL', 'Sequelize', 'REST APIs', 'JWT Auth'],
-    githubUrl: 'https://github.com/yashodipjejurkar/blog-management-platform',
-    liveUrl: 'https://github.com/yashodipjejurkar/blog-management-platform#api-documentation'
+    githubUrl: 'https://github.com/Yashodip1602/blog-management-platform',
+    liveUrl: 'https://github.com/Yashodip1602/blog-management-platform#api-documentation'
   },
   {
     id: 'terraform-aws-observability-stack',
@@ -131,7 +131,7 @@ export const projectsData = [
       iacWorkflow: 'Terraform plan -> static security check -> automated apply'
     },
     tags: ['Terraform', 'AWS VPC', 'Prometheus', 'Grafana', 'Docker Compose', 'Linux Monitoring', 'IaC'],
-    githubUrl: 'https://github.com/yashodipjejurkar/terraform-aws-observability',
-    liveUrl: 'https://github.com/yashodipjejurkar/terraform-aws-observability#dashboard-preview'
+    githubUrl: 'https://github.com/Yashodip1602/terraform-aws-observability',
+    liveUrl: 'https://github.com/Yashodip1602/terraform-aws-observability#dashboard-preview'
   }
 ]

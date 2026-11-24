@@ -162,7 +162,7 @@ export const Contact = () => {
                 <a
                   href={personalData.contact.github}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="GitHub Profile"
                   className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-mono text-xs font-semibold bg-surface-2 hover:bg-surface text-text border border-border hover:border-accent transition-colors"
                 >
@@ -173,7 +173,7 @@ export const Contact = () => {
                 <a
                   href={personalData.contact.linkedin}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label="LinkedIn Profile"
                   className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl font-mono text-xs font-semibold bg-surface-2 hover:bg-surface text-text border border-border hover:border-accent transition-colors"
                 >
