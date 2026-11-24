@@ -1,3 +1,4 @@
+import { Suspense, lazy } from 'react'
 import { ThemeProvider } from './components/ThemeContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -9,35 +10,56 @@ import Blog from './components/Blog'
 import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import SmoothScroll from './components/SmoothScroll'
+import PageIntro from './components/PageIntro'
+import { useReveal } from './components/useReveal'
+
+const Scene3D = lazy(() => import('./components/Scene3D'))
+
+function MainContent() {
+  useReveal()
+
+  return (
+    <div className="min-h-screen bg-bg text-text transition-colors duration-200 relative">
+      {/* 3D Scene lazy loaded behind content */}
+      <Suspense fallback={null}>
+        <Scene3D />
+      </Suspense>
+
+      {/* Subtle Background Grid & Glows */}
+      <div className="fixed inset-0 bg-grid-pattern pointer-events-none opacity-60 z-0" />
+      
+      {/* Ambient Top Glow */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-96 bg-gradient-to-b from-accent/10 via-emerald-500/5 to-transparent blur-3xl pointer-events-none z-0" />
+
+      {/* Sticky Header Navigation */}
+      <Navbar />
+
+      {/* Main Content Sections */}
+      <main className="relative z-10">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Impact />
+        <Blog />
+        <Experience />
+        <Contact />
+      </main>
+
+      {/* Global Footer */}
+      <Footer />
+    </div>
+  )
+}
 
 export function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-bg text-text transition-colors duration-200 relative">
-        {/* Subtle Background Grid & Glows */}
-        <div className="fixed inset-0 bg-grid-pattern pointer-events-none opacity-60 z-0" />
-        
-        {/* Ambient Top Glow */}
-        <div className="fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-96 bg-gradient-to-b from-accent/10 via-emerald-500/5 to-transparent blur-3xl pointer-events-none z-0" />
-
-        {/* Sticky Header Navigation */}
-        <Navbar />
-
-        {/* Main Content Sections */}
-        <main className="relative z-10">
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Impact />
-          <Blog />
-          <Experience />
-          <Contact />
-        </main>
-
-        {/* Global Footer */}
-        <Footer />
-      </div>
+      <PageIntro />
+      <SmoothScroll>
+        <MainContent />
+      </SmoothScroll>
     </ThemeProvider>
   )
 }
