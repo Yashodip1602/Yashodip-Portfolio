@@ -4,7 +4,7 @@ export const experienceData = [
     type: 'experience',
     role: 'Backend & DevOps Engineer',
     organization: 'Cloud-Native & Production Engineering Projects',
-    location: 'Nashik, Maharashtra, India',
+    location: 'Rahata, Maharashtra, India',
     period: '2024 — Present',
     current: true,
     description:

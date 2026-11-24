@@ -158,7 +158,7 @@ export const About = () => {
                 <span className="text-muted">Base Location:</span>
                 <span className="text-text flex items-center gap-1">
                   <MapPin className="w-3.5 h-3.5 text-rose-500" />
-                  Nashik, MH, India
+                  Rahata, Maharashtra, India
                 </span>
               </div>
               <div className="flex items-center justify-between py-1 border-b border-border/60">

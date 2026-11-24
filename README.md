@@ -1,6 +1,6 @@
 # Yashodip Jejurkar — DevOps Engineer Portfolio
 
-A modern, high-performance portfolio website for **Yashodip Jejurkar**, DevOps Engineer based in Nashik, Maharashtra, India. Built with **React (Vite)**, **Tailwind CSS v4**, and **Framer Motion**, featuring a dark terminal-inspired cloud engineering aesthetic with optional light theme toggle, interactive terminal emulator, and an animated CI/CD GitOps pipeline runner.
+A modern, high-performance portfolio website for **Yashodip Jejurkar**, DevOps Engineer based in Rahata, Maharashtra, India. Built with **React (Vite)**, **Tailwind CSS v4**, and **Framer Motion**, featuring a dark terminal-inspired cloud engineering aesthetic with optional light theme toggle, interactive terminal emulator, and an animated CI/CD GitOps pipeline runner.
 
 ---
 

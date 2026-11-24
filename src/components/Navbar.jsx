@@ -165,7 +165,7 @@ export const Navbar = () => {
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
                   {personalData.availability}
                 </span>
-                <span className="text-muted font-mono">Nashik, IN</span>
+                <span className="text-muted font-mono">Rahata, IN</span>
               </div>
             </div>
           </motion.div>

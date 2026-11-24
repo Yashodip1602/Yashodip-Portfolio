@@ -10,7 +10,7 @@ export const personalData = {
   
   // Extended about bio
   bioFull: [
-    'I am a DevOps Engineer and Backend Developer based in Nashik, Maharashtra, India. Specialized in building scalable Node.js/TypeScript REST APIs and cloud-native infrastructure with a focus on modern cloud engineering practices.',
+    'I am a DevOps Engineer and Backend Developer based in Rahata, Maharashtra, India. Specialized in building scalable Node.js/TypeScript REST APIs and cloud-native infrastructure with a focus on modern cloud engineering practices.',
     'My hands-on expertise includes high-performance backend development with Fastify, PostgreSQL database design and Sequelize ORM, containerization with Docker and Kubernetes (AWS EKS & k3s), and automating CI/CD pipelines on AWS.',
     'I have a proven track record in deploying secure, production-ready applications—from structured content workflows and JWT authentication to zero-downtime container deployments and high-availability database replication.'
   ],
@@ -51,7 +51,7 @@ export const personalData = {
   contact: {
     email: 'jejurkaryashodip@gmail.com',
     phone: '+91 9021504940',
-    location: 'Nashik, Maharashtra, India',
+    location: 'Rahata, Maharashtra, India',
     linkedin: 'https://linkedin.com/in/yashodip-jejurkar',
     github: 'https://github.com/yashodipjejurkar',
     twitter: 'https://twitter.com/yashodip_devops',

@@ -74,7 +74,7 @@ export const Hero = () => {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border border-accent/30 bg-accent/10 text-accent mb-6 backdrop-blur-sm">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
               <MapPin className="w-3.5 h-3.5 text-accent" />
-              <span>Nashik, Maharashtra, India</span>
+              <span>Rahata, Maharashtra, India</span>
               <span className="text-muted">•</span>
               <span className="text-emerald-500 font-medium">{personalData.availability}</span>
             </div>
