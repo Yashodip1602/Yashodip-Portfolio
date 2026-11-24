@@ -5,7 +5,7 @@ import {
   Download,
   MapPin
 } from 'lucide-react'
-import TerminalCard from './TerminalCard'
+import HeroOrbit from './HeroOrbit'
 import { personalData } from '../data/personal'
 
 const titles = [
@@ -142,20 +142,14 @@ export const Hero = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Animated Interactive Terminal Card */}
+          {/* Right Column: Profile Photo with Orbiting Tool Icons */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="lg:col-span-5 w-full relative z-20"
+            className="lg:col-span-5 w-full flex items-center justify-center relative z-20 py-4 lg:py-0"
           >
-            <div className="relative">
-              {/* Decorative aura glow */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-emerald-500/20 rounded-2xl blur-lg opacity-75 pointer-events-none transition duration-500" />
-              <div className="relative z-10">
-                <TerminalCard />
-              </div>
-            </div>
+            <HeroOrbit />
           </motion.div>
 
         </div>

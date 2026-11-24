@@ -1,0 +1,165 @@
+/* Hero Orbit Container and Animation Styles */
+.hero-orbit-container {
+  --orbit-size: 280px;
+  --inner-radius: 98px;
+  --outer-radius: 135px;
+  --photo-size: 150px;
+  position: relative;
+  width: var(--orbit-size);
+  height: var(--orbit-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .hero-orbit-container {
+    --orbit-size: 380px;
+    --inner-radius: 135px;
+    --outer-radius: 185px;
+    --photo-size: 200px;
+  }
+}
+
+/* Orbit Dashed Rings */
+.orbit-ring-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--inner-radius) * 2);
+  height: calc(var(--inner-radius) * 2);
+  border-radius: 50%;
+  border: 1px dashed var(--border);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.orbit-ring-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--outer-radius) * 2);
+  height: calc(var(--outer-radius) * 2);
+  border-radius: 50%;
+  border: 1px dashed var(--border);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Rotating tracks */
+.orbit-track-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: orbit-spin-cw 25s linear infinite;
+}
+
+.orbit-track-outer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  animation: orbit-spin-ccw 40s linear infinite;
+}
+
+/* Hovering the orbit pauses all rotation */
+.hero-orbit-container:hover .orbit-track-inner,
+.hero-orbit-container:hover .orbit-track-outer,
+.hero-orbit-container:hover .orbit-counter-cw,
+.hero-orbit-container:hover .orbit-counter-ccw {
+  animation-play-state: paused;
+}
+
+/* Orbit slot positioning on radius and angle */
+.orbit-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * var(--angle))) translate(-50%, -50%);
+}
+
+/* Counter-rotations to keep icons upright */
+.orbit-counter-cw {
+  animation: orbit-counter-cw 25s linear infinite;
+}
+
+.orbit-counter-ccw {
+  animation: orbit-counter-ccw 40s linear infinite;
+}
+
+/* Slightly desaturate brand icons to match dark theme palette */
+.orbit-brand-icon {
+  filter: saturate(0.85);
+  transition: filter 0.2s ease;
+}
+
+.group\/orbit:hover .orbit-brand-icon {
+  filter: saturate(1.15);
+}
+
+/* Rotation Keyframes */
+@keyframes orbit-spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes orbit-counter-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes orbit-counter-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Subtle float animation for profile photo */
+@keyframes profile-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.profile-float-anim {
+  animation: profile-float 6s ease-in-out infinite;
+}
+
+/* Accessibility: prefers-reduced-motion disables all rotation and float */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-track-inner,
+  .orbit-track-outer,
+  .orbit-counter-cw,
+  .orbit-counter-ccw,
+  .profile-float-anim {
+    animation: none !important;
+  }
+}
