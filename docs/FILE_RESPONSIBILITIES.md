@@ -18,7 +18,7 @@ This reference document defines the specific role, exports, dependencies, and mo
 
 ### `package.json`
 - **Role**: Project manifests and dependencies.
-- **Responsibilities**: Defines build scripts (`dev`, `build`, `lint`, `preview`), production dependencies (`lenis`, `gsap`, `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`, `lucide-react`, `react-icons`), and devDependencies.
+- **Responsibilities**: Defines build scripts (`dev`, `build`, `lint`, `preview`), production dependencies (`@emailjs/browser`, `lenis`, `gsap`, `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`, `lucide-react`, `react-icons`), and devDependencies.
 - **Modification Rule**: Only install authorized libraries; verify peer dependency support with React 19 before adding dependencies.
 
 ### `src/main.jsx`
@@ -143,9 +143,9 @@ This reference document defines the specific role, exports, dependencies, and mo
 - **Modification Rule**: Data sourced from `src/data/experience.js`.
 
 ### `src/components/Contact.jsx`
-- **Role**: Contact section and interactive form.
-- **Responsibilities**: Direct email, phone, location details, social profile buttons, and contact inquiry form.
-- **Modification Rule**: Reads contact coordinates dynamically from `personalData.contact`.
+- **Role**: Contact section and interactive EmailJS form.
+- **Responsibilities**: Direct email copy, location/SLA details, social profile buttons, and static-compatible inquiry form powered by `@emailjs/browser` (`VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`) with `idle | sending | success | error` states, email/length validation, honeypot bot trap, 30s `localStorage` rate limit, and `aria-live` accessibility.
+- **Modification Rule**: Reads contact coordinates dynamically from `personalData.contact` and EmailJS credentials strictly from `import.meta.env.VITE_EMAILJS_*`. Never expose raw SDK errors to the UI.
 
 ### `src/components/Footer.jsx`
 - **Role**: Site footer.

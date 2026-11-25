@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import emailjs from '@emailjs/browser'
 import {
   Mail,
   MapPin,
@@ -15,17 +16,23 @@ import {
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 import { personalData } from '../data/personal'
 
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/
+const MIN_MESSAGE_LENGTH = 10
+const RATE_LIMIT_MS = 30000
+const RATE_LIMIT_KEY = 'yj_contact_last_sent_at'
+
 export const Contact = () => {
   const [copiedEmail, setCopiedEmail] = useState(false)
   const [formState, setFormState] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    website: '' // Hidden honeypot field
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('')
+  const [status, setStatus] = useState('idle') // 'idle' | 'sending' | 'success' | 'error'
+  const [statusMsg, setStatusMsg] = useState('')
+  const [lastSenderName, setLastSenderName] = useState('')
 
   const handleCopyEmail = () => {
     navigator.clipboard?.writeText(personalData.contact.email)
@@ -36,37 +43,120 @@ export const Contact = () => {
   const handleChange = e => {
     const { name, value } = e.target
     setFormState(prev => ({ ...prev, [name]: value }))
-    if (errorMsg) setErrorMsg('')
+    if (status === 'error') {
+      setStatus('idle')
+      setStatusMsg('')
+    }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
-    // Simple frontend validation
-    if (!formState.name.trim() || !formState.email.trim() || !formState.message.trim()) {
-      setErrorMsg('Please complete all required fields.')
+    // Block double submits while a request is in flight
+    if (status === 'sending') return
+
+    // Honeypot check: silently abort if filled by automated bots
+    if (formState.website.trim()) {
+      setFormState({ name: '', email: '', subject: '', message: '', website: '' })
+      setStatus('success')
+      setStatusMsg('Message received.')
       return
     }
 
-    if (!/\S+@\S+\.\S+/.test(formState.email)) {
-      setErrorMsg('Please provide a valid email address.')
+    const trimmedName = formState.name.trim()
+    const trimmedEmail = formState.email.trim()
+    const trimmedSubject = formState.subject.trim()
+    const trimmedMessage = formState.message.trim()
+
+    // Required fields & format validation
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) {
+      setStatus('error')
+      setStatusMsg('Please fill in your name, email address, and message.')
       return
     }
 
-    setIsSubmitting(true)
-    setErrorMsg('')
+    if (!EMAIL_REGEX.test(trimmedEmail)) {
+      setStatus('error')
+      setStatusMsg('Please provide a valid email address.')
+      return
+    }
 
-    // Simulate network latency / dispatch
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-    }, 900)
+    if (trimmedMessage.length < MIN_MESSAGE_LENGTH) {
+      setStatus('error')
+      setStatusMsg(`Please enter a message of at least ${MIN_MESSAGE_LENGTH} characters.`)
+      return
+    }
+
+    // Basic 30-second rate limit via localStorage
+    try {
+      const lastSentRaw = localStorage.getItem(RATE_LIMIT_KEY)
+      if (lastSentRaw) {
+        const elapsed = Date.now() - Number(lastSentRaw)
+        if (!Number.isNaN(elapsed) && elapsed < RATE_LIMIT_MS) {
+          const waitSec = Math.ceil((RATE_LIMIT_MS - elapsed) / 1000)
+          setStatus('error')
+          setStatusMsg(`Please wait ${waitSec}s before sending another message.`)
+          return
+        }
+      }
+    } catch {
+      // Ignore storage access errors in restricted environments
+    }
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    if (!serviceId || !templateId || !publicKey) {
+      setStatus('error')
+      setStatusMsg('Contact service is currently unavailable. Please email directly instead.')
+      return
+    }
+
+    setStatus('sending')
+    setStatusMsg('Sending your message...')
+
+    const formattedMessage = trimmedSubject
+      ? `Subject: ${trimmedSubject}\n\n${trimmedMessage}`
+      : trimmedMessage
+
+    try {
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: trimmedName,
+          from_email: trimmedEmail,
+          message: formattedMessage,
+          reply_to: trimmedEmail
+        },
+        { publicKey }
+      )
+
+      try {
+        localStorage.setItem(RATE_LIMIT_KEY, String(Date.now()))
+      } catch {
+        // Ignore storage write errors
+      }
+
+      setLastSenderName(trimmedName)
+      setFormState({ name: '', email: '', subject: '', message: '', website: '' })
+      setStatus('success')
+      setStatusMsg('Your message has been sent successfully.')
+    } catch {
+      setStatus('error')
+      setStatusMsg('Unable to send your message right now. Please try again shortly or email directly.')
+    }
   }
 
   const handleReset = () => {
-    setFormState({ name: '', email: '', subject: '', message: '' })
-    setIsSubmitted(false)
+    setFormState({ name: '', email: '', subject: '', message: '', website: '' })
+    setLastSenderName('')
+    setStatus('idle')
+    setStatusMsg('')
   }
+
+  const isSending = status === 'sending'
 
   return (
     <section id="contact" className="py-16 sm:py-20 md:py-28 relative">
@@ -195,16 +285,24 @@ export const Contact = () => {
                     Dispatch Message
                   </h3>
                   <p className="text-xs text-muted font-mono mt-0.5 break-all">
-                    POST /api/v1/messages/yashodip
+                    {status === 'sending'
+                      ? 'STATUS: SENDING TRANSMISSION...'
+                      : status === 'success'
+                      ? 'STATUS: 200 OK — DELIVERED'
+                      : status === 'error'
+                      ? 'STATUS: DELIVERY ATTENTION REQUIRED'
+                      : 'READY: EMAILJS RELAY'}
                   </p>
                 </div>
                 <Terminal className="w-5 h-5 text-accent shrink-0" />
               </div>
 
               <AnimatePresence mode="wait">
-                {isSubmitted ? (
+                {status === 'success' ? (
                   <motion.div
                     key="success"
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
@@ -214,10 +312,16 @@ export const Contact = () => {
                       <CheckCircle2 className="w-6 h-6" />
                     </div>
                     <h4 className="text-base font-bold text-emerald-500">
-                      HTTP 200 OK — Message Dispatched!
+                      Message Dispatched Successfully!
                     </h4>
                     <p className="text-sm sm:text-base text-text max-w-sm mx-auto leading-relaxed font-sans">
-                      Thank you for reaching out, <span className="text-accent font-bold">{formState.name}</span>. Your message has been routed to Yashodip's inbox. Expect a response shortly!
+                      {lastSenderName ? (
+                        <>
+                          Thank you for reaching out, <span className="text-accent font-bold">{lastSenderName}</span>. Your message has been sent to Yashodip's inbox.
+                        </>
+                      ) : (
+                        statusMsg || 'Your message has been sent to Yashodip.'
+                      )}
                     </p>
                     <div className="pt-2">
                       <button
@@ -233,17 +337,48 @@ export const Contact = () => {
                   <motion.form
                     key="form"
                     onSubmit={handleSubmit}
+                    noValidate
+                    aria-busy={isSending}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     className="space-y-4"
                   >
-                    {errorMsg && (
-                      <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-mono flex items-center gap-2">
-                        <AlertCircle className="w-4 h-4 shrink-0" />
-                        <span>{errorMsg}</span>
-                      </div>
-                    )}
+                    {/* Accessible live status region for sending & error states */}
+                    <div aria-live="polite" className="min-h-0">
+                      {status === 'error' && statusMsg && (
+                        <div
+                          role="alert"
+                          className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-mono flex items-center gap-2"
+                        >
+                          <AlertCircle className="w-4 h-4 shrink-0" />
+                          <span>{statusMsg}</span>
+                        </div>
+                      )}
+
+                      {status === 'sending' && (
+                        <div className="p-3 rounded-xl bg-accent/10 border border-accent/30 text-accent text-xs font-mono flex items-center gap-2">
+                          <span>{statusMsg}</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Hidden Honeypot Field for Bot Protection */}
+                    <div
+                      aria-hidden="true"
+                      className="absolute -left-[9999px] w-0 h-0 overflow-hidden opacity-0 pointer-events-none"
+                    >
+                      <label htmlFor="website">Website</label>
+                      <input
+                        id="website"
+                        name="website"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formState.website}
+                        onChange={handleChange}
+                      />
+                    </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Name input */}
@@ -259,10 +394,13 @@ export const Contact = () => {
                           name="name"
                           type="text"
                           required
+                          autoComplete="name"
+                          disabled={isSending}
+                          aria-invalid={status === 'error' && !formState.name.trim()}
                           value={formState.name}
                           onChange={handleChange}
                           placeholder="e.g. Alex Morgan"
-                          className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                          className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all disabled:opacity-60"
                         />
                       </div>
 
@@ -279,10 +417,13 @@ export const Contact = () => {
                           name="email"
                           type="email"
                           required
+                          autoComplete="email"
+                          disabled={isSending}
+                          aria-invalid={status === 'error' && !EMAIL_REGEX.test(formState.email.trim())}
                           value={formState.email}
                           onChange={handleChange}
                           placeholder="alex@company.com"
-                          className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                          className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all disabled:opacity-60"
                         />
                       </div>
                     </div>
@@ -299,10 +440,11 @@ export const Contact = () => {
                         id="subject"
                         name="subject"
                         type="text"
+                        disabled={isSending}
                         value={formState.subject}
                         onChange={handleChange}
                         placeholder="DevOps Opportunity / Infrastructure Consultation"
-                        className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all"
+                        className="w-full min-h-[2.75rem] px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all disabled:opacity-60"
                       />
                     </div>
 
@@ -319,20 +461,23 @@ export const Contact = () => {
                         name="message"
                         rows="4"
                         required
+                        minLength={MIN_MESSAGE_LENGTH}
+                        disabled={isSending}
+                        aria-invalid={status === 'error' && formState.message.trim().length < MIN_MESSAGE_LENGTH}
                         value={formState.message}
                         onChange={handleChange}
                         placeholder="Write your message here... Describe the project, position, or infrastructure topic."
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all resize-none"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-border bg-surface-2 text-text placeholder:text-muted font-mono text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-accent/50 focus:border-accent transition-all resize-none disabled:opacity-60"
                       />
                     </div>
 
                     {/* Submit Button */}
                     <button
                       type="submit"
-                      disabled={isSubmitting}
-                      className="w-full min-h-[2.75rem] inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-accent hover:opacity-90 text-bg shadow-md shadow-accent/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50"
+                      disabled={isSending}
+                      className="w-full min-h-[2.75rem] inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-accent hover:opacity-90 text-bg shadow-md shadow-accent/20 transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? (
+                      {isSending ? (
                         <span>Encrypting & Routing Packet...</span>
                       ) : (
                         <>

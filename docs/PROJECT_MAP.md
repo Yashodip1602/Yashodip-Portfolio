@@ -8,7 +8,10 @@
 
 ```
 portfolio/
-├── .github/                   # CI/CD Workflows (if present)
+├── .github/                   # CI/CD Workflows
+│   └── workflows/
+│       └── deploy.yml         # GitHub Pages build & deploy with EmailJS secrets
+├── .env.example               # Template for EmailJS environment variables
 ├── docs/                      # Codebase Intelligence & Architecture Documentation
 │   ├── ARCHITECTURE.md        # System architecture, data flow, & motion design
 │   ├── FILE_RESPONSIBILITIES.md # Exact roles, imports, and exports of all files
