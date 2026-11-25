@@ -1,167 +1,242 @@
-/* Hero Orbit Container and Animation Styles */
+/* HeroOrbit 3D Planetary Orbit Styles */
 .hero-orbit-container {
-  --orbit-size: clamp(14.5rem, 70vw, 17.5rem);
-  --inner-radius: clamp(5rem, 24vw, 6.125rem);
-  --outer-radius: clamp(6.75rem, 32vw, 8.4375rem);
-  --photo-size: clamp(7rem, 34vw, 9.375rem);
+  /* Responsive sizing variables */
+  --size: clamp(16.5rem, 80vw, 18.75rem);
+  --photo: clamp(6.5rem, 32vw, 7.5rem);
+  --icon: clamp(1.875rem, 8.5vw, 2rem);
+
+  /* Radii relative to --size (maintaining >= 20px gap from photo) */
+  --r1: calc(var(--size) * 0.335);
+  --r2: calc(var(--size) * 0.405);
+  --r3: calc(var(--size) * 0.47);
+
+  /* Theme-aware CSS variables */
+  --orbit-ring-color: color-mix(in srgb, var(--border) 75%, transparent);
+  --orbit-card-bg: var(--surface-2);
+  --orbit-card-border: var(--border);
+  --orbit-card-shadow: color-mix(in srgb, var(--bg) 55%, transparent);
+
+  /* 3D perspective & mouse tilt variables */
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --ring-tilt: 65deg;
+
   position: relative;
-  width: var(--orbit-size);
-  height: var(--orbit-size);
+  width: var(--size);
+  height: var(--size);
   max-width: 100%;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+@media (min-width: 640px) {
+  .hero-orbit-container {
+    --size: 23.75rem;
+    --photo: 10rem;
+    --icon: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-orbit-container {
+    --size: clamp(23.75rem, 36vw, 28.75rem);
+    --photo: clamp(10rem, 15vw, 11.875rem);
+    --icon: clamp(2.5rem, 3.5vw, 2.75rem);
+  }
+}
+
+/* 3D Tilted Stage */
+.orbit-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  will-change: transform;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-@media (min-width: 768px) {
-  .hero-orbit-container {
-    --orbit-size: 23.75rem;
-    --inner-radius: 8.4375rem;
-    --outer-radius: 11.5625rem;
-    --photo-size: 12.5rem;
-  }
+/* Center Profile Photo (flat facing viewer at Z=0) */
+.orbit-center-photo {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  transform: rotateY(calc(-1 * var(--tilt-y))) rotateX(calc(-1 * var(--tilt-x)));
+  will-change: transform;
 }
 
-/* Orbit Dashed Rings */
-.orbit-ring-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(var(--inner-radius) * 2);
-  height: calc(var(--inner-radius) * 2);
-  border-radius: 50%;
-  border: 1px dashed var(--border);
-  opacity: 0.55;
-  pointer-events: none;
-}
-
-.orbit-ring-outer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(var(--outer-radius) * 2);
-  height: calc(var(--outer-radius) * 2);
-  border-radius: 50%;
-  border: 1px dashed var(--border);
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-/* Rotating tracks */
-.orbit-track-inner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  animation: orbit-spin-cw 25s linear infinite;
-}
-
-.orbit-track-outer {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  animation: orbit-spin-ccw 40s linear infinite;
-}
-
-/* Hovering the orbit pauses all rotation on hover-capable devices */
-@media (hover: hover) {
-  .hero-orbit-container:hover .orbit-track-inner,
-  .hero-orbit-container:hover .orbit-track-outer,
-  .hero-orbit-container:hover .orbit-counter-cw,
-  .hero-orbit-container:hover .orbit-counter-ccw {
-    animation-play-state: paused;
-  }
-
-  .group\/orbit:hover .orbit-brand-icon {
-    filter: saturate(1.15);
-  }
-}
-
-/* Orbit slot positioning on radius and angle */
-.orbit-slot {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: rotate(var(--angle)) translateY(calc(-1 * var(--radius))) rotate(calc(-1 * var(--angle))) translate(-50%, -50%);
-}
-
-/* Counter-rotations to keep icons upright */
-.orbit-counter-cw {
-  animation: orbit-counter-cw 25s linear infinite;
-}
-
-.orbit-counter-ccw {
-  animation: orbit-counter-ccw 40s linear infinite;
-}
-
-/* Slightly desaturate brand icons to match dark theme palette */
-.orbit-brand-icon {
-  filter: saturate(0.85);
-  transition: filter 0.2s ease;
-}
-
-/* Rotation Keyframes */
-@keyframes orbit-spin-cw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbit-spin-ccw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes orbit-counter-cw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(-360deg);
-  }
-}
-
-@keyframes orbit-counter-ccw {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.orbit-photo-img {
+  width: var(--photo);
+  height: var(--photo);
+  object-position: center 35%;
 }
 
 /* Subtle float animation for profile photo */
 @keyframes profile-float {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translateY(0);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-0.5rem);
   }
 }
 
 .profile-float-anim {
   animation: profile-float 6s ease-in-out infinite;
+  will-change: transform;
 }
 
-/* Accessibility: prefers-reduced-motion disables all rotation and float */
+/* 3D Tilted Ring Plane (65deg planetary tilt) */
+.orbit-plane {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--ring-tilt));
+  pointer-events: none;
+}
+
+/* Visible Dashed Orbital Ring */
+.orbit-ring-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed var(--orbit-ring-color);
+  pointer-events: none;
+}
+
+/* Rotating Ring Spinner */
+.orbit-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: var(--spin-name) var(--duration) linear infinite;
+}
+
+/* Evenly Spaced Slot on Ring */
+.orbit-slot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-style: preserve-3d;
+  transform: rotateZ(var(--a)) translateY(calc(-1 * var(--r))) rotateZ(calc(-1 * var(--a)));
+}
+
+/* Counter-Rotation Matching Ring Duration & Opposite Direction */
+.orbit-counter-spin {
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: var(--counter-name) var(--duration) linear infinite;
+}
+
+/* Billboard Plane Undo (keeps icon upright & facing viewer) */
+.orbit-billboard {
+  transform-style: preserve-3d;
+  transform: rotateX(calc(-1 * var(--ring-tilt))) rotateY(calc(-1 * var(--tilt-y))) rotateX(calc(-1 * var(--tilt-x)));
+  will-change: transform;
+}
+
+/* Depth Scaling & Opacity (back = smaller & dimmer, front = larger & brighter) */
+.orbit-depth {
+  will-change: transform, opacity;
+  animation: orbit-depth var(--duration) linear infinite;
+  animation-delay: var(--depth-delay);
+}
+
+/* Icon Card (Icons Only) */
+.orbit-icon-card {
+  width: var(--icon);
+  height: var(--icon);
+  transform: translate(-50%, -50%);
+  border-radius: 0.65rem;
+  background-color: var(--orbit-card-bg);
+  border: 1px solid var(--orbit-card-border);
+  box-shadow: 0 6px 18px var(--orbit-card-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  transition: border-color 0.2s ease;
+}
+
+.orbit-icon-svg {
+  width: calc(var(--icon) * 0.52);
+  height: calc(var(--icon) * 0.52);
+}
+
+/* Icon Card Hover Highlight (hover-capable devices only) */
+@media (hover: hover) {
+  .orbit-icon-card:hover {
+    border-color: var(--accent);
+  }
+}
+
+/* Tab Hidden Pause */
+.hero-orbit-container.is-paused .orbit-spinner,
+.hero-orbit-container.is-paused .orbit-counter-spin,
+.hero-orbit-container.is-paused .orbit-depth,
+.hero-orbit-container.is-paused .profile-float-anim {
+  animation-play-state: paused;
+}
+
+/* Shared Keyframes (never redefined in media queries) */
+@keyframes orbit-spin-cw {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes orbit-spin-ccw {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
+
+@keyframes orbit-depth {
+  0%, 100% {
+    opacity: 0.45;
+    transform: translateZ(-1.25rem) scale(0.84);
+  }
+  25%, 75% {
+    opacity: 0.78;
+    transform: translateZ(0) scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: translateZ(1.25rem) scale(1.1);
+  }
+}
+
+/* Accessibility: prefers-reduced-motion disables rotation, float & tilt */
 @media (prefers-reduced-motion: reduce) {
-  .orbit-track-inner,
-  .orbit-track-outer,
-  .orbit-counter-cw,
-  .orbit-counter-ccw,
+  .orbit-stage,
+  .orbit-center-photo,
+  .orbit-billboard {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+  }
+
+  .orbit-spinner,
+  .orbit-counter-spin,
+  .orbit-depth,
   .profile-float-anim {
     animation: none !important;
   }

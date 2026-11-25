@@ -30,8 +30,8 @@ portfolio/
 │   │   ├── Experience.jsx     # Career timeline, milestones, responsibilities
 │   │   ├── Footer.jsx         # Site footer, copyright, system status, social links
 │   │   ├── Hero.jsx           # Landing hero section with typewriter text & HeroOrbit
-│   │   ├── HeroOrbit.jsx      # Center photo surrounded by dual rotating toolchain rings
-│   │   ├── HeroOrbit.css      # CSS keyframes for orbital rotation & upright stabilization
+│   │   ├── HeroOrbit.jsx      # Center photo surrounded by 3 tilted 3D toolchain rings
+│   │   ├── HeroOrbit.css      # CSS 3D planetary orbit transforms, depth & billboard keyframes
 │   │   ├── Impact.jsx         # Key metrics, uptime stats, deployment frequency
 │   │   ├── Navbar.jsx         # Sticky navigation bar with anchor links & theme toggle
 │   │   ├── PageIntro.jsx      # 1s terminal boot sequence & counter curtain wipe
@@ -57,6 +57,7 @@ portfolio/
 │   ├── App.jsx                # Application root mounting providers, sections, & 3D canvas
 │   ├── index.css              # Tailwind CSS v4 directives, semantic variables, global styles
 │   └── main.jsx               # React DOM entry point rendering <App />
+├── AGENTS.md                  # Mandatory AI instructions (read & update docs/)
 ├── CNAME                      # Custom domain configuration (yashodip.me)
 ├── eslint.config.js           # Flat ESLint configuration rules
 ├── index.html                 # HTML shell, viewport, metadata, fonts

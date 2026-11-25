@@ -88,16 +88,17 @@ This reference document defines the specific role, exports, dependencies, and mo
 - **Modification Rule**: Keep total duration under 1.2 seconds to avoid blocking user interaction.
 
 ### `src/components/HeroOrbit.jsx` & `HeroOrbit.css`
-- **Role**: Hero visual centerpiece replacing the legacy terminal.
+- **Role**: Hero 3D planetary toolchain centerpiece replacing the legacy terminal.
 - **Responsibilities**:
-  - Centers circular profile photo (`src/assets/profile.webp`) with a subtle 6s float animation.
-  - Inner dashed ring: rotates Docker, Kubernetes, Jenkins, Linux clockwise (25s).
-  - Outer dashed ring: rotates AWS, Terraform, PostgreSQL, Node.js, Grafana counter-clockwise (40s).
-  - Counter-rotates icons to keep them upright at all angles.
-  - Pauses all rotations on container hover.
-  - Displays tool name tooltip on icon hover.
-  - Hides Node.js and Grafana on mobile screens (<768px).
-- **Modification Rule**: Animate strictly with `transform` and `opacity` to avoid GPU layout repaints.
+  - Centers flat circular profile photo (`src/assets/profile.webp`) with a subtle 6s float animation.
+  - Three 3D tilted dashed rings (`rotateX(65deg)` within `perspective: 1200px`):
+    - Inner (`25s` CW, `--r1`): Docker, Kubernetes, Jenkins, Linux, Git (4 on `< 640px`).
+    - Middle (`38s` CCW, `--r2`): AWS, Terraform, PostgreSQL, Redis, Node.js (4 on `< 640px`).
+    - Outer (`55s` CW, `--r3`): Grafana, Prometheus, GitHub, GitLab, SonarQube, Trivy (5 on `< 640px`).
+  - Icons-only cards (no labels or tooltips) with billboard counter-rotation and depth scaling/opacity (`translateZ`, `scale`, `opacity`).
+  - Responsive CSS variables (`--size`, `--r1`, `--r2`, `--r3`, `--icon`, `--photo`) with `>= 20px` photo-to-ring gap at all breakpoints.
+  - Subtle `requestAnimationFrame` mouse tilt (`<= 10deg`) on desktop (`>= 1024px`, hover-capable), continuous rotation without hover pause, pause when tab is hidden, and full `prefers-reduced-motion` guard.
+- **Modification Rule**: Animate strictly with `transform` and `opacity` (`will-change: transform`), keep `--a` angle variables and shared keyframes outside media queries, and preserve theme CSS variables.
 
 ---
 

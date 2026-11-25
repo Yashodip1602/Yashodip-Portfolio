@@ -116,10 +116,12 @@ sequenceDiagram
    - Translates along the Y and Z axis proportional to `scrollY`.
    - Performance safeguards: `dpr={[1, 2]}`, `frameloop="never"` when tab is hidden or reduced motion is active.
 5. **`HeroOrbit.jsx` & `HeroOrbit.css`**:
-   - Pure CSS hardware-accelerated transforms (`transform` & `opacity`).
-   - Dual rotating tracks (inner 25s clockwise, outer 40s counter-clockwise).
-   - Reverse-rotates icon cards to guarantee icons remain permanently upright.
-   - Hovering any part of the orbit pauses rotation instantly.
+   - Pure CSS 3D planetary orbit (`perspective: 1200px`, `transform-style: preserve-3d`, `rotateX(65deg)` orbital planes).
+   - Three concentric tilted rings: Inner (`25s` CW, 5 icons / 4 mobile), Middle (`38s` CCW, 5 icons / 4 mobile), Outer (`55s` CW, 6 icons / 5 mobile).
+   - Billboard counter-rotation (`rotateZ` inverse + `rotateX(-65deg)` + inverse mouse tilt) keeps icon cards upright and viewer-facing at all angles.
+   - Depth-based scaling and opacity (`translateZ`, `scale`, `opacity`) make rear icons smaller/dimmer and front icons larger/brighter.
+   - Desktop mouse tilt up to `10deg` via `requestAnimationFrame` (`>= 1024px` + `@media (hover: hover)`).
+   - Pauses animations when the browser tab is hidden (`visibilitychange`), and `prefers-reduced-motion: reduce` disables rotation, float, and tilt.
 
 ---
 
