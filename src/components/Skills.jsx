@@ -12,35 +12,35 @@ export const Skills = () => {
       : skillsData.filter(s => s.category === activeCategory)
 
   return (
-    <section id="skills" className="py-20 md:py-28 relative">
+    <section id="skills" className="py-16 sm:py-20 md:py-28 relative">
       {/* Background accent glow */}
-      <div className="absolute top-1/2 left-0 w-80 h-80 bg-accent/5 blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute top-1/2 left-0 w-[min(80vw,20rem)] h-[20rem] bg-accent/5 blur-3xl pointer-events-none rounded-full" />
 
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 relative z-10">
+      <div className="site-container relative z-10">
         
         {/* Section Header */}
         <div className="flex flex-col items-start mb-10">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-accent mb-2">
+          <div className="inline-flex flex-wrap items-center gap-2 font-mono text-xs text-accent mb-2">
             <span className="text-emerald-500">$ devops-cli</span>
             <span>skills list --format=matrix</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text">
+          <h2 className="text-[clamp(1.75rem,3vw+1rem,2.5rem)] font-extrabold tracking-tight text-text leading-tight">
             Skills & <span className="text-accent">Toolchain</span>
           </h2>
-          <p className="text-muted text-sm sm:text-base max-w-xl mt-2">
+          <p className="text-muted text-[clamp(1rem,0.4vw+0.9rem,1.0625rem)] max-w-[38rem] mt-2 leading-relaxed">
             Field-tested tools and architectural disciplines powering automated delivery pipelines, container clusters, and zero-downtime infrastructure.
           </p>
           <div className="w-16 h-1 bg-gradient-to-r from-accent to-emerald-500 rounded-full mt-3" />
         </div>
 
         {/* Category Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none max-w-full">
           {skillCategories.map(cat => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               type="button"
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-mono transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
+              className={`min-h-[2.75rem] shrink-0 px-3.5 py-2 rounded-lg text-xs font-mono transition-all whitespace-nowrap cursor-pointer flex items-center gap-1.5 ${
                 activeCategory === cat.id
                   ? 'bg-accent text-bg font-bold shadow-md shadow-accent/20'
                   : 'bg-surface-2 text-muted hover:text-text hover:bg-surface border border-border'
@@ -54,7 +54,7 @@ export const Skills = () => {
         {/* Skills Grid */}
         <motion.div
           layout
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5"
         >
           <AnimatePresence mode="popLayout">
             {filteredSkills.map(skill => (
@@ -65,12 +65,12 @@ export const Skills = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
-                className="group relative p-5 rounded-2xl border border-border bg-surface hover:border-accent hover:bg-surface-2/40 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                className="group relative p-5 rounded-2xl border border-border bg-surface hover:border-accent hover:bg-surface-2/40 shadow-sm hover:shadow-md transition-all flex flex-col justify-between min-w-0"
               >
                 {/* Header: Icon, Name & Category Badge */}
                 <div>
-                  <div className="flex items-start justify-between mb-3.5">
-                    <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center p-2.5 group-hover:scale-105 group-hover:border-accent/50 transition-all shadow-inner">
+                  <div className="flex items-start justify-between gap-2 mb-3.5">
+                    <div className="w-12 h-12 rounded-xl bg-surface-2 border border-border flex items-center justify-center p-2.5 group-hover:scale-105 group-hover:border-accent/50 transition-all shadow-inner shrink-0">
                       <TechIcon name={skill.iconType || skill.name} className="w-7 h-7" />
                     </div>
                     <span className="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-surface-2 text-muted border border-border">
@@ -78,14 +78,14 @@ export const Skills = () => {
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-bold text-text font-mono group-hover:text-accent transition-colors mb-1.5 flex items-center justify-between">
+                  <h3 className="text-[clamp(1.0625rem,1vw+0.85rem,1.125rem)] font-bold text-text font-mono group-hover:text-accent transition-colors mb-1.5 flex flex-wrap items-center justify-between gap-2">
                     <span>{skill.name}</span>
                     <span className="text-[10px] text-emerald-500 font-mono uppercase tracking-wider font-semibold">
                       {skill.level}
                     </span>
                   </h3>
 
-                  <p className="text-xs text-muted leading-relaxed mb-4">
+                  <p className="text-[clamp(1rem,0.25vw+0.9375rem,1.0625rem)] text-muted leading-relaxed mb-4">
                     {skill.highlight}
                   </p>
                 </div>

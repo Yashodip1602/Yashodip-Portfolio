@@ -11,6 +11,12 @@ const AnimatedCounter = ({ value, suffix = '', duration = 1.5 }) => {
   useEffect(() => {
     if (!isInView) return
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      const id = requestAnimationFrame(() => setDisplayValue(value))
+      return () => cancelAnimationFrame(id)
+    }
+
     const isDecimal = Number.isInteger(value) === false
     const end = value
     const totalFrames = Math.round(duration * 60)
@@ -43,23 +49,23 @@ const AnimatedCounter = ({ value, suffix = '', duration = 1.5 }) => {
 
 export const About = () => {
   return (
-    <section id="about" className="py-20 md:py-28 relative">
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6">
+    <section id="about" className="py-16 sm:py-20 md:py-28 relative">
+      <div className="site-container">
         
         {/* Section Header */}
-        <div className="flex flex-col items-start mb-12">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-accent mb-2">
+        <div className="flex flex-col items-start mb-10 sm:mb-12">
+          <div className="inline-flex flex-wrap items-center gap-2 font-mono text-xs text-accent mb-2">
             <span className="text-emerald-500">$ cat</span>
             <span>~/about/profile.md</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-text">
+          <h2 className="text-[clamp(1.75rem,3vw+1rem,2.5rem)] font-extrabold tracking-tight text-text leading-tight">
             About <span className="text-accent">Yashodip</span>
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-accent to-emerald-500 rounded-full mt-3" />
         </div>
 
         {/* Bio Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12 sm:mb-14">
           
           {/* Main Bio Text */}
           <motion.div
@@ -67,7 +73,7 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5 }}
-            className="lg:col-span-7 space-y-4 text-muted leading-relaxed text-sm sm:text-base"
+            className="lg:col-span-7 space-y-4 text-muted leading-relaxed text-[clamp(1rem,0.4vw+0.9rem,1.0625rem)] min-w-0"
           >
             {personalData.bioFull.map((paragraph, idx) => (
               <p key={idx} className="relative pl-4 border-l-2 border-accent/40 text-text/90">
@@ -133,9 +139,9 @@ export const About = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-5 p-6 rounded-2xl border border-border bg-surface shadow-xl space-y-4"
+            className="lg:col-span-5 p-5 sm:p-6 rounded-2xl border border-border bg-surface shadow-xl space-y-4 min-w-0"
           >
-            <div className="flex items-center justify-between border-b border-border pb-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3">
               <span className="font-mono text-xs uppercase tracking-wider text-accent font-semibold">
                 Node Specification
               </span>
@@ -146,39 +152,39 @@ export const About = () => {
             </div>
 
             <div className="space-y-3 font-mono text-xs">
-              <div className="flex items-center justify-between py-1 border-b border-border/60">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1 border-b border-border/60">
                 <span className="text-muted">Engineer:</span>
-                <span className="text-text font-semibold">{personalData.name}</span>
+                <span className="text-text font-semibold text-right">{personalData.name}</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-border/60">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1 border-b border-border/60">
                 <span className="text-muted">Primary Role:</span>
-                <span className="text-accent font-medium">DevOps Engineer</span>
+                <span className="text-accent font-medium text-right">DevOps Engineer</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-border/60">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1 border-b border-border/60">
                 <span className="text-muted">Base Location:</span>
-                <span className="text-text flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-rose-500" />
+                <span className="text-text flex items-center gap-1 text-right">
+                  <MapPin className="w-3.5 h-3.5 text-rose-500 shrink-0" />
                   Rahata, Maharashtra, India
                 </span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-border/60">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1 border-b border-border/60">
                 <span className="text-muted">Timezone:</span>
-                <span className="text-text">IST (UTC +5:30)</span>
+                <span className="text-text text-right">IST (UTC +5:30)</span>
               </div>
-              <div className="flex items-center justify-between py-1 border-b border-border/60">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1 border-b border-border/60">
                 <span className="text-muted">Cloud Stack:</span>
-                <span className="text-amber-500 font-semibold">AWS (EC2, S3, IAM, VPC)</span>
+                <span className="text-amber-500 font-semibold text-right">AWS (EC2, S3, IAM, VPC)</span>
               </div>
-              <div className="flex items-center justify-between py-1">
+              <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-1">
                 <span className="text-muted">Orchestrator:</span>
-                <span className="text-blue-500 font-semibold">k3s / Lightweight K8s</span>
+                <span className="text-blue-500 font-semibold text-right">k3s / Lightweight K8s</span>
               </div>
             </div>
 
             <div className="pt-2">
               <a
                 href="#contact"
-                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl font-mono text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 transition-colors"
+                className="w-full min-h-[2.75rem] inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-mono text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 transition-colors"
               >
                 <span>Initiate Communication</span>
                 <span>→</span>
@@ -188,7 +194,7 @@ export const About = () => {
         </div>
 
         {/* 3 Animated Counters + Target SLA */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 min-[375px]:grid-cols-2 md:grid-cols-4 gap-4">
           {personalData.stats.map((stat, idx) => (
             <motion.div
               key={stat.id}
@@ -196,9 +202,9 @@ export const About = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="p-5 rounded-2xl border border-border bg-surface shadow-sm hover:border-accent/50 hover:shadow-md transition-all text-left group"
+              className="p-4 sm:p-5 rounded-2xl border border-border bg-surface shadow-sm hover:border-accent/50 hover:shadow-md transition-all text-left group"
             >
-              <div className="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-500 mb-1 group-hover:scale-105 transition-transform origin-left">
+              <div className="text-[clamp(1.75rem,3vw+0.75rem,2.25rem)] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-accent to-emerald-500 mb-1 group-hover:scale-105 transition-transform origin-left">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-xs sm:text-sm font-semibold text-text mb-1">

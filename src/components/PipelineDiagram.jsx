@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import {
   Play,
   CheckCircle2,
@@ -16,6 +16,7 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
   const [simulatedStep, setSimulatedStep] = useState(-1)
   const intervalRef = useRef(null)
   const timeoutRef = useRef(null)
+  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     return () => {
@@ -55,16 +56,16 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
   const activeStepData = steps[selectedStep] || steps[0] || { step: 1, title: 'Pipeline Stage', desc: '' }
 
   return (
-    <div className="w-full rounded-2xl border border-border bg-surface-2/60 p-5 sm:p-6 shadow-xl space-y-6">
+    <div className="w-full rounded-2xl border border-border bg-surface-2/60 p-4 sm:p-6 shadow-xl space-y-6">
       
       {/* Top Bar with Title & Simulation Button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border pb-4">
-        <div>
+        <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-xs text-accent">
-            <Activity className="w-3.5 h-3.5 animate-pulse text-emerald-500" />
+            <Activity className="w-3.5 h-3.5 animate-pulse text-emerald-500 shrink-0" />
             <span>LIVE ARCHITECTURE & PIPELINE RUNNER</span>
           </div>
-          <h4 className="text-base sm:text-lg font-bold text-text font-mono mt-0.5">
+          <h4 className="text-[clamp(0.95rem,1vw+0.7rem,1.125rem)] font-bold text-text font-mono mt-0.5 break-words">
             Git Push ➔ Jenkins CI ➔ Docker ➔ Registry ➔ ArgoCD ➔ k3s Multi-Node
           </h4>
         </div>
@@ -73,7 +74,7 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
           onClick={startSimulation}
           disabled={isSimulating}
           type="button"
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 border border-emerald-500/40 hover:border-emerald-500 transition-all cursor-pointer disabled:opacity-50"
+          className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-lg text-xs font-mono font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 border border-emerald-500/40 hover:border-emerald-500 transition-all cursor-pointer disabled:opacity-50 shrink-0"
         >
           {isSimulating ? (
             <>
@@ -92,7 +93,7 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
       {/* Visual Pipeline Flow Grid */}
       <div className="relative">
         {/* Desktop Pipeline Horizontal Flow */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-1 min-[375px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
           {steps.map((step, idx) => {
             const isCurrentSimulated = simulatedStep === idx
             const isSimulatedDone = simulatedStep > idx || simulatedStep === steps.length - 1
@@ -104,7 +105,7 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
                 <button
                   type="button"
                   onClick={() => setSelectedStep(idx)}
-                  className={`w-full p-3.5 rounded-xl border text-center transition-all cursor-pointer relative overflow-hidden group ${
+                  className={`w-full min-h-[2.75rem] p-3.5 rounded-xl border text-center transition-all cursor-pointer relative overflow-hidden group ${
                     isSelected
                       ? 'border-accent bg-accent/15 shadow-md shadow-accent/20 ring-1 ring-accent'
                       : isCurrentSimulated
@@ -149,8 +150,8 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
                 {idx < steps.length - 1 && (
                   <div className="hidden lg:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-accent">
                     <motion.span
-                      animate={{ x: [0, 4, 0] }}
-                      transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                      animate={shouldReduceMotion ? undefined : { x: [0, 4, 0] }}
+                      transition={shouldReduceMotion ? undefined : { repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
                     >
                       <ArrowRight className="w-4 h-4 text-accent drop-shadow-[0_0_6px_rgba(6,182,212,0.4)]" />
                     </motion.span>
@@ -188,7 +189,7 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
             Click on any stage above to inspect operation parameters
           </span>
         </div>
-        <p className="text-text text-xs sm:text-sm leading-relaxed mb-3">
+        <p className="text-text text-[clamp(1rem,0.25vw+0.9375rem,1.0625rem)] leading-relaxed mb-3 font-sans">
           {activeStepData.desc}
         </p>
 
@@ -241,10 +242,10 @@ export const PipelineDiagram = ({ steps = [], scalingPlan }) => {
       {scalingPlan && (
         <div className="p-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 font-mono text-xs">
           <div className="flex items-center gap-2 text-emerald-500 font-bold mb-2">
-            <Cpu className="w-4 h-4 text-emerald-500" />
+            <Cpu className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>CPU-BASED HORIZONTAL POD AUTOSCALING (HPA) PLAN</span>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px]">
+          <div className="grid grid-cols-1 min-[375px]:grid-cols-2 md:grid-cols-4 gap-3 text-[11px]">
             <div>
               <span className="text-muted block">Target Metric:</span>
               <span className="text-text font-semibold">{scalingPlan.metric}</span>

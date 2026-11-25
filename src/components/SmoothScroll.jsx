@@ -9,9 +9,10 @@ export const SmoothScroll = ({ children }) => {
   const lenisRef = useRef(null)
 
   useEffect(() => {
-    // Respect prefers-reduced-motion
+    // Respect prefers-reduced-motion and preserve native scroll on mobile (< 768px)
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReducedMotion) {
+    const isMobileViewport = window.matchMedia('(max-width: 767px)').matches
+    if (prefersReducedMotion || isMobileViewport) {
       return
     }
 

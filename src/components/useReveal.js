@@ -10,8 +10,10 @@ export const useReveal = () => {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReducedMotion) return
 
-    const ctx = gsap.context(() => {
-      // 1. Hero light parallax on scroll (subtle scrub)
+    const mm = gsap.matchMedia()
+
+    // 1. Hero light parallax on scroll (tablet/desktop >= 768px only)
+    mm.add('(min-width: 768px)', () => {
       const heroContent = document.querySelector('#hero .grid')
       if (heroContent) {
         gsap.to(heroContent, {
@@ -26,6 +28,9 @@ export const useReveal = () => {
           }
         })
       }
+    })
+
+    const ctx = gsap.context(() => {
 
       // 2. Sections fade & slide up when entering viewport
       const sections = document.querySelectorAll('section:not(#hero)')
@@ -112,6 +117,7 @@ export const useReveal = () => {
     })
 
     return () => {
+      mm.revert()
       ctx.revert() // Clean up all listeners and ScrollTriggers on unmount
     }
   }, [])

@@ -110,8 +110,12 @@ export const HeroOrbit = () => {
             loading="eager"
             width={200}
             height={200}
-            className="w-[150px] h-[150px] md:w-[200px] md:h-[200px] rounded-full object-cover border-2 border-accent"
-            style={{ objectPosition: 'center 35%' }}
+            className="rounded-full object-cover border-2 border-accent"
+            style={{
+              width: 'var(--photo-size)',
+              height: 'var(--photo-size)',
+              objectPosition: 'center 35%'
+            }}
           />
         </div>
       </div>

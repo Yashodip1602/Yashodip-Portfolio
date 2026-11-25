@@ -55,12 +55,12 @@ export const Hero = () => {
   }, [displayText, isDeleting, titleIndex])
 
   return (
-    <section id="hero" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
+    <section id="hero" className="relative min-h-[100dvh] flex items-center pt-[calc(5.5rem+env(safe-area-inset-top))] pb-14 md:pt-28 md:pb-20 overflow-hidden">
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-accent/15 via-emerald-500/5 to-transparent blur-3xl pointer-events-none rounded-full" />
-      <div className="absolute top-20 right-10 w-72 h-72 bg-accent/5 blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(90vw,37.5rem)] h-[22rem] bg-gradient-to-tr from-accent/15 via-emerald-500/5 to-transparent blur-3xl pointer-events-none rounded-full" />
+      <div className="absolute top-20 right-10 w-[min(60vw,18rem)] h-[18rem] bg-accent/5 blur-3xl pointer-events-none rounded-full" />
 
-      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 relative z-10">
+      <div className="site-container relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           
           {/* Left Column: Bio & Hero Details */}
@@ -68,30 +68,30 @@ export const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-7 flex flex-col items-start text-left"
+            className="lg:col-span-7 flex flex-col items-start text-left min-w-0"
           >
             {/* Status & Location Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono border border-accent/30 bg-accent/10 text-accent mb-6 backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block" />
-              <MapPin className="w-3.5 h-3.5 text-accent" />
+            <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 px-3 py-1.5 rounded-2xl sm:rounded-full text-xs font-mono border border-accent/30 bg-accent/10 text-accent mb-6 backdrop-blur-sm max-w-full">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping inline-block shrink-0" />
+              <MapPin className="w-3.5 h-3.5 text-accent shrink-0" />
               <span>Rahata, Maharashtra, India</span>
-              <span className="text-muted">•</span>
+              <span className="text-muted hidden sm:inline">•</span>
               <span className="text-emerald-500 font-medium">{personalData.availability}</span>
             </div>
 
             {/* Name Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-text leading-[1.1] mb-3">
+            <h1 className="text-[clamp(2.125rem,5vw+1rem,3.75rem)] font-extrabold tracking-tight text-text leading-[1.1] mb-3">
               {personalData.name}
             </h1>
 
             {/* Typewriter Role Title */}
-            <div className="flex items-center gap-2 text-xl sm:text-2xl lg:text-3xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal-400 to-emerald-400 min-h-[40px] mb-5">
+            <div className="flex items-center gap-2 text-[clamp(1.25rem,2.5vw+0.75rem,1.875rem)] font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent via-teal-400 to-emerald-400 min-h-[2.5rem] mb-5">
               <span>{displayText || '\u00A0'}</span>
-              <span className="inline-block w-2.5 h-7 bg-accent animate-blink" />
+              <span className="inline-block w-2.5 h-[1.4em] bg-accent animate-blink shrink-0" />
             </div>
 
             {/* One-line Bio */}
-            <p className="text-base sm:text-lg text-muted leading-relaxed max-w-2xl mb-6">
+            <p className="text-[clamp(1rem,0.5vw+0.875rem,1.125rem)] text-muted leading-relaxed max-w-[42rem] mb-6">
               {personalData.bioShort}
             </p>
 
@@ -111,11 +111,11 @@ export const Hero = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-3.5 w-full sm:w-auto">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
               {/* View Projects Button */}
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-accent hover:opacity-90 text-bg shadow-md shadow-accent/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-accent hover:opacity-90 text-bg shadow-md shadow-accent/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
               >
                 <span>View Projects</span>
                 <ArrowRight className="w-4 h-4" />
@@ -125,7 +125,7 @@ export const Hero = () => {
               <a
                 href={personalData.contact.resumeUrl}
                 download="Yashodip_Jejurkar_DevOps_Resume.pdf"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-surface border border-border text-text hover:border-accent hover:text-accent shadow-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-surface border border-border text-text hover:border-accent hover:text-accent shadow-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0"
                 title="Download Yashodip's DevOps Resume (PDF)"
               >
                 <Download className="w-4 h-4 text-accent" />
@@ -135,7 +135,7 @@ export const Hero = () => {
               {/* Contact Quick Link */}
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-mono text-xs sm:text-sm text-muted hover:text-accent hover:bg-surface-2 transition-colors"
+                className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-mono text-xs sm:text-sm text-muted hover:text-accent hover:bg-surface-2 transition-colors"
               >
                 <span>$ ping me</span>
               </a>

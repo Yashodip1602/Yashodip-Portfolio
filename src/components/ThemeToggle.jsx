@@ -11,7 +11,7 @@ export const ThemeToggle = ({ className = '' }) => {
       type="button"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      className={`relative inline-flex items-center justify-center p-2 rounded-lg border border-border bg-surface hover:bg-surface-2 text-muted hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors backdrop-blur-sm cursor-pointer shadow-sm ${className}`}
+      className={`relative inline-flex items-center justify-center min-w-[2.75rem] min-h-[2.75rem] p-2.5 rounded-lg border border-border bg-surface hover:bg-surface-2 text-muted hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 transition-colors backdrop-blur-sm cursor-pointer shadow-sm ${className}`}
     >
       <motion.div
         key={isDark ? 'dark' : 'light'}

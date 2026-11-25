@@ -1,12 +1,13 @@
 /* Hero Orbit Container and Animation Styles */
 .hero-orbit-container {
-  --orbit-size: 280px;
-  --inner-radius: 98px;
-  --outer-radius: 135px;
-  --photo-size: 150px;
+  --orbit-size: clamp(14.5rem, 70vw, 17.5rem);
+  --inner-radius: clamp(5rem, 24vw, 6.125rem);
+  --outer-radius: clamp(6.75rem, 32vw, 8.4375rem);
+  --photo-size: clamp(7rem, 34vw, 9.375rem);
   position: relative;
   width: var(--orbit-size);
   height: var(--orbit-size);
+  max-width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,10 +15,10 @@
 
 @media (min-width: 768px) {
   .hero-orbit-container {
-    --orbit-size: 380px;
-    --inner-radius: 135px;
-    --outer-radius: 185px;
-    --photo-size: 200px;
+    --orbit-size: 23.75rem;
+    --inner-radius: 8.4375rem;
+    --outer-radius: 11.5625rem;
+    --photo-size: 12.5rem;
   }
 }
 
@@ -67,12 +68,18 @@
   animation: orbit-spin-ccw 40s linear infinite;
 }
 
-/* Hovering the orbit pauses all rotation */
-.hero-orbit-container:hover .orbit-track-inner,
-.hero-orbit-container:hover .orbit-track-outer,
-.hero-orbit-container:hover .orbit-counter-cw,
-.hero-orbit-container:hover .orbit-counter-ccw {
-  animation-play-state: paused;
+/* Hovering the orbit pauses all rotation on hover-capable devices */
+@media (hover: hover) {
+  .hero-orbit-container:hover .orbit-track-inner,
+  .hero-orbit-container:hover .orbit-track-outer,
+  .hero-orbit-container:hover .orbit-counter-cw,
+  .hero-orbit-container:hover .orbit-counter-ccw {
+    animation-play-state: paused;
+  }
+
+  .group\/orbit:hover .orbit-brand-icon {
+    filter: saturate(1.15);
+  }
 }
 
 /* Orbit slot positioning on radius and angle */
@@ -96,10 +103,6 @@
 .orbit-brand-icon {
   filter: saturate(0.85);
   transition: filter 0.2s ease;
-}
-
-.group\/orbit:hover .orbit-brand-icon {
-  filter: saturate(1.15);
 }
 
 /* Rotation Keyframes */

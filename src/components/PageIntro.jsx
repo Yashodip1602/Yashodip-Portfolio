@@ -77,10 +77,10 @@ export const PageIntro = () => {
   return (
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bg text-text select-none"
+      className="fixed inset-0 z-50 min-h-[100dvh] flex flex-col items-center justify-center bg-bg text-text select-none px-4"
       style={{ willChange: 'transform' }}
     >
-      <div className="w-full max-w-sm px-6 flex flex-col items-center">
+      <div className="w-full max-w-[24rem] px-4 flex flex-col items-center">
         {/* Terminal Title */}
         <div className="flex items-center gap-2 mb-4 font-mono text-xs text-accent">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -90,7 +90,7 @@ export const PageIntro = () => {
         {/* Counter Display */}
         <div
           ref={counterRef}
-          className="font-mono text-5xl sm:text-6xl font-extrabold tracking-tighter text-text mb-6"
+          className="font-mono text-[clamp(2.75rem,8vw,3.75rem)] font-extrabold tracking-tighter text-text mb-6"
         >
           0%
         </div>
@@ -104,7 +104,7 @@ export const PageIntro = () => {
         </div>
 
         {/* Status Subtitle */}
-        <div className="flex justify-between w-full mt-3 font-mono text-[10px] text-muted">
+        <div className="flex justify-between w-full mt-3 font-mono text-[10px] text-muted gap-2">
           <span>INITIALIZING INFRASTRUCTURE</span>
           <span>READY</span>
         </div>

@@ -207,6 +207,10 @@ export const Scene3D = () => {
     }
   }, [])
 
+  if (isMobile || prefersReducedMotion) {
+    return null
+  }
+
   return (
     <div
       aria-hidden="true"
