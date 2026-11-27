@@ -140,6 +140,6 @@ All portfolio content is decoupled from React presentation files into `src/data/
 ## 5. Performance & Accessibility Standards
 
 - **Asset Optimization**: High-resolution photography served in WebP with explicit width and height (`200x200`) and `loading="eager"`.
-- **Code Splitting**: Heavy 3D modules (`three`, `@react-three/fiber`) are isolated into an asynchronous chunk via `React.lazy()` and `<Suspense fallback={null}>`.
+- **Code Splitting**: Heavy 3D modules (`three`, `@react-three/fiber`) are isolated into an asynchronous chunk via `React.lazy()` and `<Suspense fallback={null}>`. Resume PDF generation (`@react-pdf/renderer` and `src/components/resume/ResumeDocument.jsx`) is also dynamically imported on demand via `src/lib/downloadResume.js` when the user clicks Download Resume, with a fallback to `public/resume.pdf`.
 - **Accessibility**: Comprehensive `prefers-reduced-motion: reduce` guards disable all 3D rotations, smooth scroll hijacking, and intro overlays for sensitive users.
 - **Clean Teardown**: All listeners, RAF tickers, and ScrollTriggers are explicitly reverted on unmount.

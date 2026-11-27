@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
+  Check,
   Download,
+  Loader2,
   MapPin
 } from 'lucide-react'
 import HeroOrbit from './HeroOrbit'
 import { personalData } from '../data/personal'
+import { downloadResume, triggerStaticResumeFallback } from '../lib/downloadResume'
 
 const titles = [
   'Backend Developer',
@@ -20,6 +23,38 @@ export const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0)
   const [displayText, setDisplayText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
+  const [resumeState, setResumeState] = useState('idle')
+  const resumeTimerRef = useRef(null)
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current)
+      }
+    }
+  }, [])
+
+  const handleDownloadResume = async () => {
+    if (resumeState === 'generating') return
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current)
+    }
+
+    setResumeState('generating')
+    try {
+      await downloadResume()
+      setResumeState('done')
+      resumeTimerRef.current = setTimeout(() => {
+        setResumeState('idle')
+      }, 2500)
+    } catch {
+      setResumeState('error')
+      triggerStaticResumeFallback()
+      resumeTimerRef.current = setTimeout(() => {
+        setResumeState('idle')
+      }, 5000)
+    }
+  }
 
   // Infinite looping typewriter effect
   useEffect(() => {
@@ -122,15 +157,30 @@ export const Hero = () => {
               </a>
 
               {/* Download Resume Button */}
-              <a
-                href={personalData.contact.resumeUrl}
-                download="Yashodip_Jejurkar_DevOps_Resume.pdf"
-                className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-surface border border-border text-text hover:border-accent hover:text-accent shadow-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              <button
+                type="button"
+                onClick={handleDownloadResume}
+                disabled={resumeState === 'generating'}
+                className="w-full sm:w-auto min-h-[2.75rem] inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl font-mono text-xs sm:text-sm font-semibold bg-surface border border-border text-text hover:border-accent hover:text-accent shadow-sm transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                 title="Download Yashodip's DevOps Resume (PDF)"
               >
-                <Download className="w-4 h-4 text-accent" />
-                <span>Download Resume</span>
-              </a>
+                {resumeState === 'generating' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 text-accent animate-spin" />
+                    <span>Preparing...</span>
+                  </>
+                ) : resumeState === 'done' ? (
+                  <>
+                    <Check className="w-4 h-4 text-emerald-500" />
+                    <span>Download Resume</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4 text-accent" />
+                    <span>Download Resume</span>
+                  </>
+                )}
+              </button>
 
               {/* Contact Quick Link */}
               <a
@@ -140,6 +190,11 @@ export const Hero = () => {
                 <span>$ ping me</span>
               </a>
             </div>
+            {resumeState === 'error' && (
+              <p role="status" aria-live="polite" className="mt-2.5 text-xs font-mono text-muted">
+                Could not generate live PDF; downloading static resume instead.
+              </p>
+            )}
           </motion.div>
 
           {/* Right Column: Profile Photo with Orbiting Tool Icons */}
