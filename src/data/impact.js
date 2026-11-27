@@ -1,58 +1,72 @@
 export const impactData = [
   {
-    id: 'zero-manual-deployments',
-    title: 'Zero Manual Interventions',
-    stat: '100%',
-    statLabel: 'Automated CI/CD Pipeline',
+    id: 'gitops-cicd',
+    title: 'Automated GitOps CI/CD',
+    stat: 'Git Push',
+    statLabel: 'Triggers Full Production Deploy',
     badge: 'GitOps Driven',
     description:
-      'Transformed manual server SSH scripts into declarative GitOps workflows with Jenkins & ArgoCD. Every push undergoes automated linting, container builds, and synchronized deployment to production without human touchpoints.',
+      'Jenkins builds the Docker image, pushes it to AWS ECR, and updates the Git manifest repo. ArgoCD then auto-syncs the new version to the k3s cluster.',
     highlights: [
-      'Eliminated manual SSH configuration drift',
-      'Automated rollback upon probe failures',
-      'Audit trail recorded via Git commits'
+      'Git is the single source of truth',
+      'App repo on GitLab, config repo on GitHub',
+      'Full audit trail via Git commits'
     ]
   },
   {
-    id: 'strict-rpo-rto',
-    title: 'Strict RPO & RTO Disaster Recovery',
-    stat: '<15m',
-    statLabel: 'RPO Data Loss Guarantee',
-    badge: 'Disaster Recovery',
+    id: 'devsecops-gates',
+    title: 'DevSecOps Quality Gates',
+    stat: 'Shift-Left',
+    statLabel: 'Security and Quality Scans in Pipeline',
+    badge: 'DevSecOps',
     description:
-      'Engineered PostgreSQL primary-replica streaming replication and cron-driven encrypted S3 backups, achieving an RPO under 15 minutes and RTO under 30 minutes with documented restoration playbooks.',
+      'Added SonarQube for code smell analysis and Trivy for container image vulnerability scanning. Both run on a separate, dedicated EC2 instance.',
     highlights: [
-      'Continuous WAL streaming replication',
-      'Automated cron sync to encrypted AWS S3',
-      'Verified point-in-time recovery playbooks'
+      'SonarQube checks code quality',
+      'Trivy scans the pushed ECR image',
+      'Jenkins triggers the scan over SSH'
     ]
   },
   {
-    id: 'cpu-elastic-scaling',
-    title: 'Self-Healing & Elastic Scaling',
-    stat: '70%',
-    statLabel: 'Dynamic CPU HPA Threshold',
-    badge: 'Kubernetes Orchestration',
+    id: 'rds-ownership-fix',
+    title: 'RDS Ownership Fix',
+    stat: 'Fixed',
+    statLabel: 'RDS Ownership Errors Resolved',
+    badge: 'Database Reliability',
     description:
-      'Configured Horizontal Pod Autoscaler (HPA) inside k3s on AWS EC2. Pods automatically scale out from 2 up to 6 instances as traffic spikes cross the 70% CPU threshold, maintaining optimal responsiveness while controlling cloud compute costs.',
+      'REASSIGN OWNED failed on AWS RDS. I wrote a per-object script (tables, sequences, views) to move ownership to the app role and removed permission errors.',
     highlights: [
-      'Zero-downtime rolling deployments',
-      'Dynamic workload scaling based on CPU',
-      'Automated pod restart on container failure'
+      'ALTER OWNER TO for tables, sequences, views',
+      'Works within RDS permission limits',
+      'Fixed app role access errors'
     ]
   },
   {
-    id: 'cost-effective-ha',
-    title: 'Resilient Multi-Node Cloud Architecture',
-    stat: '2-Node',
-    statLabel: 'Distributed AWS EC2 Topology',
+    id: 'ecr-lifecycle',
+    title: 'Clean Container Registry',
+    stat: 'Auto-Clean',
+    statLabel: 'Only Last 7 Images Retained',
+    badge: 'AWS Cost Control',
+    description:
+      'Configured an ECR lifecycle policy that keeps only the last 7 images, so the registry stays clean and storage cost stays low.',
+    highlights: [
+      'Old images expire automatically',
+      'Policy managed in AWS, not in the pipeline',
+      'Images pushed to ap-south-1 (Mumbai)'
+    ]
+  },
+  {
+    id: 'separated-infra',
+    title: 'Separated CI, Runtime and Scan Nodes',
+    stat: 'Isolated',
+    statLabel: 'Workloads on Dedicated EC2 Instances',
     badge: 'AWS Infrastructure',
     description:
-      'Separated Kubernetes control plane and compute worker onto distinct EC2 instances in a hardened VPC. Established least-privilege IAM security policies and encrypted EBS volumes for reliable 24/7 service availability.',
+      'Jenkins and Docker run on one EC2 instance. k3s, ArgoCD, and the application run on another. SonarQube and Trivy run on their own instance, so builds and scans never slow down production.',
     highlights: [
-      'Separation of master and worker workloads',
-      'Hardened security groups and IAM roles',
-      'Optimized AWS resource utilization'
+      'CI load kept away from runtime',
+      'Dedicated instance for security scans',
+      'Simple and cost-aware AWS setup'
     ]
   }
 ]

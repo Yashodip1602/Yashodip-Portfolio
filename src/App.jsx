@@ -4,7 +4,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Skills from './components/Skills'
-import Projects from './components/Projects'
+// import Projects from './components/Projects'
 import Impact from './components/Impact'
 import Blog from './components/Blog'
 import Experience from './components/Experience'
@@ -63,7 +63,7 @@ function MainContent() {
         <Hero />
         <About />
         <Skills />
-        <Projects />
+        {/* <Projects /> */}
         <Impact />
         <Blog />
         <Experience />
