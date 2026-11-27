@@ -2,37 +2,40 @@ export const experienceData = [
   {
     id: 'exp-1',
     type: 'experience',
-    role: 'Backend & DevOps Engineer',
-    organization: 'Cloud-Native & Production Engineering Projects',
+    role: 'DevOps & Backend Engineer',
+    organization: 'Cloud-Native Project Work',
     location: 'Rahata, Maharashtra, India',
-    period: '2024 — Present',
+    period: '2024 - Present',
     current: true,
     description:
-      'Designing and deploying scalable Node.js/TypeScript REST APIs, containerized microservices, and automated AWS CI/CD pipelines.',
+      'Building CI/CD pipelines, containerized deployments, and Node.js backends on AWS with hands-on GitOps and DevSecOps practice.',
     bulletPoints: [
-      'Engineered a high-performance blog platform backend using Fastify, optimized PostgreSQL queries, and JWT authentication.',
-      'Built a production-ready pipeline integrating Jenkins and AWS ECR to automate container orchestration on AWS EKS.',
-      'Managed declarative Kubernetes manifests to deploy scalable, highly-available workloads with zero-downtime rolling updates.',
-      'Automated application delivery using Jenkins CI/CD pipelines and Docker containerization to eliminate manual release overhead.'
+      'Built an end-to-end CI/CD pipeline for the LogiChain backend: GitLab checkout, Docker build, push to Amazon ECR, and automated deploy to Amazon EKS behind an AWS Load Balancer.',
+      'Set up GitOps delivery where Jenkins builds and pushes images, updates the manifest repo, and ArgoCD auto-syncs to the cluster.',
+      'Added SonarQube code analysis and Trivy image scanning to the pipeline, running on a dedicated EC2 instance.',
+      'Fixed PostgreSQL ownership errors on AWS RDS with a per-object script, and audited the schema for missing primary keys.',
+      'Configured Jenkins email notifications (SMTP) and debugged failed builds using logs.',
+      'Built Node.js REST APIs with Fastify, PostgreSQL, and JWT authentication.'
     ],
-    skills: ['Node.js', 'Fastify', 'Docker', 'Kubernetes', 'AWS EKS', 'Jenkins', 'PostgreSQL', 'Linux']
+    skills: ['Jenkins', 'Docker', 'Kubernetes', 'AWS EKS', 'AWS ECR', 'ArgoCD', 'SonarQube', 'Trivy', 'GitLab', 'Node.js', 'Fastify', 'PostgreSQL']
   },
   {
     id: 'exp-2',
     type: 'experience',
-    role: 'Cloud & Systems Engineering Practice',
-    organization: 'DevOps & Infrastructure Lab',
+    role: 'DevOps Learning and Practice',
+    organization: 'DevOps Winter Arc (Learning in Public)',
     location: 'Maharashtra, India',
-    period: '2023 — 2024',
+    period: '2023 - 2024',
     current: false,
     description:
-      'Hands-on engineering in Linux server administration, database replication, container optimization, and cloud infrastructure.',
+      'Daily hands-on practice in Linux, monitoring, databases, and cloud infrastructure, shared publicly on LinkedIn.',
     bulletPoints: [
-      'Automated routine operational tasks using Bash shell scripting, systemd units, and cron schedules.',
-      'Implemented PostgreSQL primary-replica streaming replication on EC2 with automated backup scripts to AWS S3.',
-      'Configured AWS VPC subnets, route tables, IAM roles, and security groups with security best practices.'
+      'Automated routine tasks using Bash scripts, cron schedules, and systemd services.',
+      'Practiced monitoring with Prometheus and Grafana, and load testing with Apache JMeter.',
+      'Learning PostgreSQL replication and automated S3 backups with cron, including RPO and RTO planning.',
+      'Writing a daily DevOps series covering topics like GitOps with ArgoCD, Jenkins, and Kubernetes.'
     ],
-    skills: ['Linux', 'Docker', 'AWS EC2', 'AWS S3', 'PostgreSQL', 'Bash Scripting', 'Git']
+    skills: ['Linux', 'Bash Scripting', 'Prometheus', 'Grafana', 'Apache JMeter', 'AWS EC2', 'AWS S3', 'PostgreSQL', 'Git']
   }
 ]
 
@@ -78,21 +81,21 @@ export const educationData = [
 
 export const certificationsData = [
   {
-    name: 'AWS Cloud & Infrastructure Engineering',
+    name: 'AWS Cloud & Infrastructure Engineering Tranning',
     issuer: 'Amazon Web Services (AWS)',
     status: 'Practiced & Hands-On',
-    date: '2024'
+    date: '2026'
   },
-  {
-    name: 'Kubernetes Container Orchestration',
-    issuer: 'Cloud Native Computing Foundation (CNCF)',
-    status: 'Hands-on Labs Completed',
-    date: '2024'
-  },
-  {
-    name: 'Docker & Node.js Production Backend Guide',
-    issuer: 'Online Professional Learning',
-    status: 'Completed',
-    date: '2024'
-  }
+  // {
+  //   name: 'Kubernetes Container Orchestration',
+  //   issuer: 'Cloud Native Computing Foundation (CNCF)',
+  //   status: 'Hands-on Labs Completed',
+  //   date: '2024'
+  // },
+  // {
+  //   name: 'Docker & Node.js Production Backend Guide',
+  //   issuer: 'Online Professional Learning',
+  //   status: 'Completed',
+  //   date: '2024'
+  // }
 ]

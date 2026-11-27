@@ -1,67 +1,39 @@
 export const blogPosts = [
-  {
-    id: 'day-22-argocd-gitops',
-    dayBadge: 'Day 22',
-    date: 'Recent Journey',
-    readTime: '4 min read',
-    title: 'Demystifying GitOps: Why ArgoCD Changed How We Deploy on Kubernetes',
+    {
+    id: 'cicd-pipeline-aws-eks',
+    dayBadge: 'Project',
+    date: 'Jul 2026',
+    readTime: '2 min read',
+    title: 'End-to-End CI/CD Pipeline Deployed on AWS EKS',
     excerpt:
-      'Moving away from imperative kubectl scripts to declarative GitOps. How ArgoCD monitors Git repositories as the single source of truth, detects configuration drifts, and synchronizes live cluster state without manual intervention.',
-    takeaway: 'Git is the single source of truth; no direct kubectl access needed in production.',
-    tags: ['GitOps', 'ArgoCD', 'Kubernetes', 'CI/CD'],
-    // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
+      'Built a complete CI/CD pipeline for the LogiChain backend. GitLab checkout, Docker build and tagging, secure push to Amazon ECR, and automated deployment to Amazon EKS, exposed through an AWS Load Balancer.',
+    takeaway: 'Hands-on CI/CD automation, containerization, and Kubernetes deployment on AWS.',
+    tags: ['Docker', 'Jenkins', 'AWS EKS', 'ECR', 'GitLab'],
+    postUrl: 'https://lnkd.in/p/dTynCebV'
   },
   {
-    id: 'day-25-k3s-on-ec2',
-    dayBadge: 'Day 25',
-    date: 'Recent Journey',
-    readTime: '5 min read',
-    title: 'Setting Up a Lightweight Kubernetes Cluster with k3s on AWS EC2',
+    id: 'devops-winter-arc',
+    dayBadge: 'Winter Arc',
+    date: 'Ongoing',
+    readTime: '1 min read',
+    title: 'DevOps Winter Arc: My Daily Learning Journey',
     excerpt:
-      'Standard Kubernetes can be resource-heavy for lean architectures. Here is how I bootstrapped a 2-node k3s cluster on AWS EC2, configured Flannel networking, and optimized memory usage while retaining full Kubernetes API compliance.',
-    takeaway: 'k3s cuts memory consumption by over 50% without sacrificing standard Kubernetes APIs.',
-    tags: ['k3s', 'Kubernetes', 'AWS EC2', 'Linux'],
-    // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
+      'My ongoing daily DevOps series. Hands-on practice, real projects, and lessons shared in public along the way.',
+    takeaway: 'Consistency beats intensity. Learn, build, and share every day.',
+    tags: ['DevOps', 'Learning in Public', 'Kubernetes'],
+    // TODO: paste the real Winter Arc post link
+    postUrl: 'PASTE_WINTER_ARC_LINK_HERE'
   },
   {
-    id: 'day-28-postgres-replication',
-    dayBadge: 'Day 28',
-    date: 'Recent Journey',
-    readTime: '6 min read',
-    title: 'PostgreSQL Streaming Replication: Step-by-Step Deep Dive',
+    id: 'jenkins-email-notifications',
+    dayBadge: 'Project',
+    date: 'Aug 2026',
+    readTime: '2 min read',
+    title: 'Jenkins CI/CD Pipeline with Email Notifications',
     excerpt:
-      'How to establish primary-standby physical streaming replication on Linux EC2 instances using pg_basebackup, replication slots, and postgresql.conf parameter tuning for zero data loss and read offloading.',
-    takeaway: 'Replication slots prevent the primary from discarding WAL logs before the replica ingests them.',
-    tags: ['PostgreSQL', 'Databases', 'High Availability', 'Linux'],
-    // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
+      'Debugged a failed Jenkins build using logs, fixed the issues, and completed the deployment. Then configured SMTP email alerts so every build success or failure reaches my inbox automatically.',
+    takeaway: 'CI/CD is not just automation. It is visibility and quick feedback.',
+    tags: ['Jenkins', 'CI/CD', 'SMTP', 'Automation'],
+    postUrl: 'https://lnkd.in/p/dj7XXwRd'
   },
-  {
-    id: 'day-30-rpo-rto-planning',
-    dayBadge: 'Day 30',
-    date: 'Recent Journey',
-    readTime: '5 min read',
-    title: 'Defining RPO and RTO in Cloud Disaster Recovery Architecture',
-    excerpt:
-      'Understanding the critical difference between Recovery Point Objective and Recovery Time Objective. How to architect automated cron backups, off-site encrypted S3 buckets, and standby failover playbooks to meet tough SLAs.',
-    takeaway: 'Backups are useless until you have tested and timed the recovery procedure.',
-    tags: ['Disaster Recovery', 'RPO/RTO', 'AWS S3', 'Cron Automation'],
-    // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
-  },
-  {
-    id: 'day-32-jenkins-node-pipeline',
-    dayBadge: 'Day 32',
-    date: 'Recent Journey',
-    readTime: '6 min read',
-    title: 'Building a Production-Grade Jenkins Pipeline for Node.js Microservices',
-    excerpt:
-      'A deep dive into constructing robust declarative Jenkinsfiles. Covering multibranch triggers, Docker multi-stage builds, vulnerability scanning with Trivy, and automated Git manifest commits for ArgoCD pickup.',
-    takeaway: 'Multi-stage Docker builds shrink runtime images from 850MB down to 120MB.',
-    tags: ['Jenkins', 'Node.js', 'Docker', 'Automation'],
-    // TODO: replace with your actual LinkedIn post URL or personal blog article URL
-    postUrl: 'https://www.linkedin.com/in/yashodip-jejurkar-6b3a44412/recent-activity/'
-  }
 ]
