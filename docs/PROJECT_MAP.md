@@ -40,6 +40,8 @@ portfolio/
 │   │   ├── PageIntro.jsx      # 1s terminal boot sequence & counter curtain wipe
 │   │   ├── PipelineDiagram.jsx # Interactive CI/CD pipeline architectural diagram
 │   │   ├── Projects.jsx       # Featured architecture projects & repository links
+│   │   ├── resume/            # ATS-friendly resume PDF templates
+│   │   │   └── ResumeDocument.jsx # React-PDF single-source-of-truth A4 resume layout
 │   │   ├── Scene3D.jsx        # Lazy-loaded Three.js/R3F wireframe icosahedron & particles
 │   │   ├── Skills.jsx         # Filterable DevOps skills & toolchain grid
 │   │   ├── SmoothScroll.jsx   # Lenis smooth-scroll provider synced with GSAP
@@ -57,6 +59,8 @@ portfolio/
 │   │   ├── personal.js        # Contact details, bio, roles, social links, location
 │   │   ├── projects.js        # Deep-dive DevOps projects, architectures, GitHub URLs
 │   │   └── skills.js          # Toolchain categories and detailed skill cards
+│   ├── lib/                   # Client-side utilities & lazy-loaded actions
+│   │   └── downloadResume.js  # Lazy-loads @react-pdf/renderer and downloads/falls back PDF
 │   ├── App.jsx                # Application root mounting providers, sections, & 3D canvas
 │   ├── index.css              # Tailwind CSS v4 directives, semantic variables, global styles
 │   └── main.jsx               # React DOM entry point rendering <App />

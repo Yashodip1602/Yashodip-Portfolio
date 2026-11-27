@@ -65,73 +65,73 @@ export const projectsData = [
     // TODO: replace with your live demo or architecture docs link
     liveUrl: 'https://github.com/Yashodip1602/master-devops-nodejs-aws-k3s#architecture-walkthrough'
   },
-  {
-    id: 'postgres-replication-s3-backup',
-    featured: false,
-    title: 'PostgreSQL High-Availability Replication & S3 Backup',
-    subtitle: 'Primary-Replica Clustering on AWS EC2 with Automated Cron Disasters Recovery',
-    description:
-      'Configured a high-availability PostgreSQL cluster on AWS EC2 featuring real-time physical streaming replication between primary (read/write) and standby replica (read-only) nodes. Built automated scheduled backup cron daemons that compress, encrypt, and push database dumps to AWS S3 with stringent disaster recovery SLA guarantees.',
-    architectureDetails: [
-      'Physical Streaming Replication: Configured Write-Ahead Logging (WAL) streaming via replication slots for real-time replica synchrony.',
-      'Automated S3 Offsite Archiving: Bash cron scripts executing daily full dumps and hourly WAL differential syncs to an encrypted AWS S3 bucket.',
-      'RPO Target (< 15 Minutes): Recovery Point Objective bounded by continuous WAL archiving, ensuring minimal permissible data loss.',
-      'RTO Target (< 30 Minutes): Recovery Time Objective streamlined via scripted standby promotion and DNS/VIP failover playbooks.',
-      'Lifecycle Policies: S3 bucket lifecycle rules transitioning 30-day dumps to Glacier and auto-expiring obsolete archives to optimize storage costs.'
-    ],
-    scalingPlan: {
-      rpo: '< 15 Minutes (Continuous WAL streaming to S3)',
-      rto: '< 30 Minutes (Scripted standby promotion & DNS reroute)',
-      backupCadence: 'Hourly incremental + Daily full compressed backup',
-      retention: '30-day standard S3 storage, 90-day Glacier archive'
-    },
-    tags: ['PostgreSQL', 'AWS EC2', 'AWS S3', 'WAL Replication', 'Bash Scripting', 'Cron Automation', 'RPO/RTO', 'DR Playbook'],
-    // TODO: replace with your actual GitHub repository URL
-    githubUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup',
-    liveUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup#disaster-recovery-plan'
-  },
-  {
-    id: 'blog-management-platform',
-    featured: false,
-    title: 'High-Performance Blog Management Platform Backend',
-    subtitle: 'Node.js, Fastify REST APIs & Optimized PostgreSQL with Structured Validation',
-    description:
-      'Architected and deployed a production-ready blog platform backend using Fastify for high-performance, low-latency request handling and optimized PostgreSQL relational queries. Engineered end-to-end content workflows including article creation, publishing pipelines, and hierarchical comment management with structured data validation.',
-    architectureDetails: [
-      'High-Throughput Fastify Engine: Leveraging Fastify schema compilation for sub-millisecond serialization and minimal latency.',
-      'PostgreSQL & Sequelize ORM: Normalized relational schema design, indexed queries, connection pooling, and transactional integrity.',
-      'JWT Authentication & Authorization: Role-based access control (RBAC) securing author endpoints, editorial workflows, and reader permissions.',
-      'Structured Data Validation: Strict payload sanitization and error handling preventing injection vulnerabilities.'
-    ],
-    scalingPlan: {
-      alerting: 'P95 response latency < 25ms, zero unhandled rejections',
-      metricsRetention: 'Structured JSON application logging with Winston',
-      iacWorkflow: 'Fastify -> Sequelize -> PostgreSQL Container'
-    },
-    tags: ['Node.js', 'Fastify', 'PostgreSQL', 'Sequelize', 'REST APIs', 'JWT Auth'],
-    githubUrl: 'https://github.com/Yashodip1602/blog-management-platform',
-    liveUrl: 'https://github.com/Yashodip1602/blog-management-platform#api-documentation'
-  },
-  {
-    id: 'terraform-aws-observability-stack',
-    featured: false,
-    title: 'Cloud Infrastructure as Code & Observability Stack',
-    subtitle: 'Automated AWS Multi-AZ Provisioning with Prometheus & Grafana Monitoring',
-    description:
-      'Designed declarative Terraform modules to provision immutable AWS cloud infrastructure including VPC, public/private subnets, internet gateways, and EC2 instances. Coupled the infrastructure with a containerized observability stack using Prometheus, Node Exporter, and Grafana to track compute metrics, disk I/O, and container health in real-time.',
-    architectureDetails: [
-      'Modular Terraform: Reusable Terraform modules with remote S3 state locking via DynamoDB to prevent race conditions during updates.',
-      'Security Hardened: Principle of least privilege applied to AWS IAM policies and strict security group ingress/egress CIDR rules.',
-      'Prometheus Telemetry: Metric scraping from Kubernetes nodes, container cAdvisor endpoints, and database connection pools at 15s intervals.',
-      'Grafana Visualizations: Pre-configured dashboards showcasing CPU saturation, memory exhaustion alerts, and network throughput.'
-    ],
-    scalingPlan: {
-      alerting: 'Alertmanager integration for CPU > 85% and disk usage > 80%',
-      metricsRetention: '15 days on dedicated persistent EBS volume',
-      iacWorkflow: 'Terraform plan -> static security check -> automated apply'
-    },
-    tags: ['Terraform', 'AWS VPC', 'Prometheus', 'Grafana', 'Docker Compose', 'Linux Monitoring', 'IaC'],
-    githubUrl: 'https://github.com/Yashodip1602/terraform-aws-observability',
-    liveUrl: 'https://github.com/Yashodip1602/terraform-aws-observability#dashboard-preview'
-  }
+  // {
+  //   id: 'postgres-replication-s3-backup',
+  //   featured: false,
+  //   title: 'PostgreSQL High-Availability Replication & S3 Backup',
+  //   subtitle: 'Primary-Replica Clustering on AWS EC2 with Automated Cron Disasters Recovery',
+  //   description:
+  //     'Configured a high-availability PostgreSQL cluster on AWS EC2 featuring real-time physical streaming replication between primary (read/write) and standby replica (read-only) nodes. Built automated scheduled backup cron daemons that compress, encrypt, and push database dumps to AWS S3 with stringent disaster recovery SLA guarantees.',
+  //   architectureDetails: [
+  //     'Physical Streaming Replication: Configured Write-Ahead Logging (WAL) streaming via replication slots for real-time replica synchrony.',
+  //     'Automated S3 Offsite Archiving: Bash cron scripts executing daily full dumps and hourly WAL differential syncs to an encrypted AWS S3 bucket.',
+  //     'RPO Target (< 15 Minutes): Recovery Point Objective bounded by continuous WAL archiving, ensuring minimal permissible data loss.',
+  //     'RTO Target (< 30 Minutes): Recovery Time Objective streamlined via scripted standby promotion and DNS/VIP failover playbooks.',
+  //     'Lifecycle Policies: S3 bucket lifecycle rules transitioning 30-day dumps to Glacier and auto-expiring obsolete archives to optimize storage costs.'
+  //   ],
+  //   scalingPlan: {
+  //     rpo: '< 15 Minutes (Continuous WAL streaming to S3)',
+  //     rto: '< 30 Minutes (Scripted standby promotion & DNS reroute)',
+  //     backupCadence: 'Hourly incremental + Daily full compressed backup',
+  //     retention: '30-day standard S3 storage, 90-day Glacier archive'
+  //   },
+  //   tags: ['PostgreSQL', 'AWS EC2', 'AWS S3', 'WAL Replication', 'Bash Scripting', 'Cron Automation', 'RPO/RTO', 'DR Playbook'],
+  //   // TODO: replace with your actual GitHub repository URL
+  //   githubUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup',
+  //   liveUrl: 'https://github.com/Yashodip1602/postgres-replication-s3-backup#disaster-recovery-plan'
+  // },
+  // {
+  //   id: 'blog-management-platform',
+  //   featured: false,
+  //   title: 'High-Performance Blog Management Platform Backend',
+  //   subtitle: 'Node.js, Fastify REST APIs & Optimized PostgreSQL with Structured Validation',
+  //   description:
+  //     'Architected and deployed a production-ready blog platform backend using Fastify for high-performance, low-latency request handling and optimized PostgreSQL relational queries. Engineered end-to-end content workflows including article creation, publishing pipelines, and hierarchical comment management with structured data validation.',
+  //   architectureDetails: [
+  //     'High-Throughput Fastify Engine: Leveraging Fastify schema compilation for sub-millisecond serialization and minimal latency.',
+  //     'PostgreSQL & Sequelize ORM: Normalized relational schema design, indexed queries, connection pooling, and transactional integrity.',
+  //     'JWT Authentication & Authorization: Role-based access control (RBAC) securing author endpoints, editorial workflows, and reader permissions.',
+  //     'Structured Data Validation: Strict payload sanitization and error handling preventing injection vulnerabilities.'
+  //   ],
+  //   scalingPlan: {
+  //     alerting: 'P95 response latency < 25ms, zero unhandled rejections',
+  //     metricsRetention: 'Structured JSON application logging with Winston',
+  //     iacWorkflow: 'Fastify -> Sequelize -> PostgreSQL Container'
+  //   },
+  //   tags: ['Node.js', 'Fastify', 'PostgreSQL', 'Sequelize', 'REST APIs', 'JWT Auth'],
+  //   githubUrl: 'https://github.com/Yashodip1602/blog-management-platform',
+  //   liveUrl: 'https://github.com/Yashodip1602/blog-management-platform#api-documentation'
+  // },
+  // {
+  //   id: 'terraform-aws-observability-stack',
+  //   featured: false,
+  //   title: 'Cloud Infrastructure as Code & Observability Stack',
+  //   subtitle: 'Automated AWS Multi-AZ Provisioning with Prometheus & Grafana Monitoring',
+  //   description:
+  //     'Designed declarative Terraform modules to provision immutable AWS cloud infrastructure including VPC, public/private subnets, internet gateways, and EC2 instances. Coupled the infrastructure with a containerized observability stack using Prometheus, Node Exporter, and Grafana to track compute metrics, disk I/O, and container health in real-time.',
+  //   architectureDetails: [
+  //     'Modular Terraform: Reusable Terraform modules with remote S3 state locking via DynamoDB to prevent race conditions during updates.',
+  //     'Security Hardened: Principle of least privilege applied to AWS IAM policies and strict security group ingress/egress CIDR rules.',
+  //     'Prometheus Telemetry: Metric scraping from Kubernetes nodes, container cAdvisor endpoints, and database connection pools at 15s intervals.',
+  //     'Grafana Visualizations: Pre-configured dashboards showcasing CPU saturation, memory exhaustion alerts, and network throughput.'
+  //   ],
+  //   scalingPlan: {
+  //     alerting: 'Alertmanager integration for CPU > 85% and disk usage > 80%',
+  //     metricsRetention: '15 days on dedicated persistent EBS volume',
+  //     iacWorkflow: 'Terraform plan -> static security check -> automated apply'
+  //   },
+  //   tags: ['Terraform', 'AWS VPC', 'Prometheus', 'Grafana', 'Docker Compose', 'Linux Monitoring', 'IaC'],
+  //   githubUrl: 'https://github.com/Yashodip1602/terraform-aws-observability',
+  //   liveUrl: 'https://github.com/Yashodip1602/terraform-aws-observability#dashboard-preview'
+  // }
 ]

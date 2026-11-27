@@ -18,7 +18,7 @@ This reference document defines the specific role, exports, dependencies, and mo
 
 ### `package.json`
 - **Role**: Project manifests and dependencies.
-- **Responsibilities**: Defines build scripts (`dev`, `build`, `lint`, `preview`), production dependencies (`@emailjs/browser`, `lenis`, `gsap`, `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`, `lucide-react`, `react-icons`), and devDependencies.
+- **Responsibilities**: Defines build scripts (`dev`, `build`, `lint`, `preview`), production dependencies (`@emailjs/browser`, `@react-pdf/renderer`, `lenis`, `gsap`, `three`, `@react-three/fiber`, `@react-three/drei`, `framer-motion`, `lucide-react`, `react-icons`), and devDependencies.
 - **Modification Rule**: Only install authorized libraries; verify peer dependency support with React 19 before adding dependencies.
 
 ### `src/main.jsx`
@@ -106,7 +106,7 @@ This reference document defines the specific role, exports, dependencies, and mo
 
 ### `src/components/Hero.jsx`
 - **Role**: Landing fold introduction.
-- **Responsibilities**: Renders availability badge, Yashodip Jejurkar title, typewriter roles, tech pills, CTAs, and mounts `<HeroOrbit />`.
+- **Responsibilities**: Renders availability badge, Yashodip Jejurkar title, typewriter roles, tech pills, CTAs (including the Download Resume button calling `downloadResume()` with `idle | generating | done | error` states and `public/resume.pdf` fallback), and mounts `<HeroOrbit />`.
 - **Modification Rule**: Do not alter typewriter timer intervals or text pills without verifying responsive height.
 
 ### `src/components/About.jsx`
@@ -166,6 +166,16 @@ This reference document defines the specific role, exports, dependencies, and mo
 - **Role**: Architectural visualization of GitOps pipeline.
 - **Responsibilities**: Interactive diagram demonstrating Code -> Build -> Docker -> k3s -> ArgoCD workflow with flow animations.
 - **Modification Rule**: Preserve SVG viewBox and responsive container constraints.
+
+### `src/components/resume/ResumeDocument.jsx`
+- **Role**: ATS-friendly A4 resume PDF document template (`@react-pdf/renderer`).
+- **Responsibilities**: Reads directly from `personal.js`, `skills.js`, `experience.js`, `projects.js`, and `impact.js` to render a single-column Helvetica resume (dark teal headings/name, black body text on white background, 36pt margins, clickable links, max 4 bullets per experience/project).
+- **Modification Rule**: Keep single-source-of-truth imports from `src/data/` and ATS-safe structure (no photos, icons, charts, or tables).
+
+### `src/lib/downloadResume.js`
+- **Role**: Lazy-loaded browser PDF download helper.
+- **Responsibilities**: Dynamically imports `@react-pdf/renderer` and `ResumeDocument`, generates the PDF Blob (`Yashodip_Jejurkar_DevOps_Engineer_Resume.pdf`), triggers mobile-compatible browser download, revokes object URLs after download, and provides `triggerStaticResumeFallback()` for `public/resume.pdf`.
+- **Modification Rule**: Keep `@react-pdf/renderer` dynamically imported so it is excluded from the initial bundle.
 
 ---
 
